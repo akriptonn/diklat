@@ -1,57 +1,149 @@
+<!DOCTYPE html>
 <HTML>
-<head>
-<title>Form Alumni Peserta Diklat Ketenagakerjaan</title>
-</head>
-<body>
-<div align="center">
-Form Alumni Peserta Diklat Ketenagakerjaan
-<form action="/action_page.php">
-    <br>NIP:<br>
-    <input type="text" name="nip" value="131000911"><br>
-    <br>Nama:<br>
-    <input type="text" name="name" value="Zulkarnain, Drs"><br>
-    <br>Tanggal lahir:<br>
-    <input type="date" name="bday"><br>
-    <br>Pangkat:<br>
-    <select name="rank">
-        <option value="1a">I/a</option>
-        <option value="1b">I/b</option>
-        <option value="1c">I/c</option>
-        <option value="1d">I/d</option>
-        <option value="2a">II/a</option>
-        <option value="2b">II/b</option>
-        <option value="2c">II/c</option>
-        <option value="2d">II/d</option>
-        <option value="3a">III/a</option>
-        <option value="3b">III/b</option>
-        <option value="3c">III/c</option>
-        <option value="3d">III/d</option>
-        <option value="4a">IV/a</option>
-        <option value="4b">IV/b</option>
-        <option value="4c">IV/c</option>
-        <option value="4d">IV/d</option>
-        <option value="4e">IV/e</option>
-      </select><br>
-    <br>Jenis Kelamin:<br>
-    <input type="radio" name="gender" value="male"> Laki-laki<br>
-    <input type="radio" name="gender" value="female"> Perempuan<br>
-    <br>Jabatan:<br>
-    <input type="text" name="position" value="Ka.Bid. Pengemb.Pegawai "><br>
-    <br>Unit Kerja:<br>
-    <input type="text" name="workunit" value="BKD Kab. Batanghari"><br> 
-    <br>Pusat/Provinsi:<br>
-    <input type="text" name="location" value="Jambi"><br>
-    <br>Diklat/Angkatan:<br>
-    <input type="text" name="diklat" value="Lokakarya Prog.Diklat Nakertrs I"><br>  
-    <br>Tahun:<br>
-    <input type="text" name="year" value="2006"><br>
-    <br>No. Hp:<br>
-    <input type="text" name="phonenum" value="08XXX"><br>
-    <br>Email:<br>
-    <input type="text" name="email" value="user@domain.com"><br><br>                  
-    <input type="submit" value="Submit">
-    <input type="reset">
-  </form>
-</div>
+  <head>
+    <link rel="shortcut icon" href="kemnakerri.jpg">
+    <title>Form Alumni Peserta Diklat Ketenagakerjaan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <style>
+  * {box-sizing:border-box;}
+  body{font-family: Arial,Arial, Helvetica, sans-serif;}
+  header{ background-color:rgb(34, 80, 90);
+          padding:30px;
+          text-align: center;
+          font-size: 35px;
+          color:white;}
+  section{display: -webkit-flex;
+          display: flex}
+  nav{    -webkit-flex:2;
+          -ms-flex:2;
+          flex:2;
+          text-align: center;
+          background:rgb(255, 255, 255);
+          padding:10px}
+  nav ul{ list-style-type: none;
+          padding:0}
+  article{-webkit-flex: 3;
+          -ms-flex: 3;
+          flex: 3;
+          background-color: rgb(255, 255, 255);
+          padding: 10px;}
+  footer{ background-color: rgb(34, 80, 90);
+          padding: 10px;
+          text-align: center;
+          color: white}
+  </style>
+  <body>
+    <header>
+     <h1>Pusdiklat Pegawai Kemnaker RI</h1>
+    </header>
+  <section>
+    <nav>
+        <h2>Form Alumni Peserta Diklat Ketenagakerjaan</h2>
+        <img src="kemnakerri.jpg">
+    </nav>
+
+    <article>
+        <ul>
+          <form action="/action_page.php">
+            <table border="0">
+              <tr>
+                <td><li>NIP:</td>
+                <td><input type="text" name="nip" value="131000911" required></td></li>
+              </tr>
+              <td><br></td>
+              <tr>
+                <td><li>Nama:</td>
+                <td><input type="text" name="nama" value="Zulkarnain, Drs" required></td></li>
+              </tr>
+              <td><br></td>
+              <tr>
+                  <td><li>Tanggal lahir:</td>
+                  <td><input type="date" name="tanggallahir" required></td></li>
+                </tr>
+                <td><br></td>
+              <tr>
+                  <td><li>Pangkat:</td>
+                  <td>
+                      <select name="pangkat" required>
+                          <option value="1a">I/a</option>
+                          <option value="1b">I/b</option>
+                          <option value="1c">I/c</option>
+                          <option value="1d">I/d</option>
+                          <option value="2a">II/a</option>
+                          <option value="2b">II/b</option>
+                          <option value="2c">II/c</option>
+                          <option value="2d">II/d</option>
+                          <option value="3a">III/a</option>
+                          <option value="3b">III/b</option>
+                          <option value="3c">III/c</option>
+                          <option value="3d">III/d</option>
+                          <option value="4a">IV/a</option>
+                          <option value="4b">IV/b</option>
+                          <option value="4c">IV/c</option>
+                          <option value="4d">IV/d</option>
+                          <option value="4e">IV/e</option>
+                          </select>
+                  </td></li>
+                </tr>
+                <tr>
+                    <td><li>Jenis Kelamin:</td>
+                    <td>
+                        <br><input type="radio" name="jeniskelamin" value="male" checked> Laki-laki
+                        <br><input type="radio" name="jeniskelamin" value="female"> Perempuan
+                    </td></li>
+                  </tr>
+                  <td><br></td>
+                <tr>
+                  <td><li>Jabatan:</td>
+                  <td><input type="text" name="jabatan" value="Ka.Bid. Pengemb.Pegawai " required></td></li>
+                </tr>
+                <td><br></td>  
+                <tr>
+                    <td><li>Unit Kerja:</td>
+                    <td><input type="text" name="unitkerja" value="BKD Kab. Batanghari" required></td></li>
+                  </tr>
+                  <td><br></td> 
+                <tr>
+                    <td><li>Pusat/Provinsi:</td>
+                    <td><input type="text" name="pusatprovinsi" value="Jambi" required></td></li>
+                  </tr>
+                  <td><br></td>
+                <tr>
+                    <td><li>Diklat/Angkatan:</td>
+                    <td><input type="text" name="diklatangkatan" value="Lokakarya Prog.Diklat Nakertrs I" required></td></li>
+                  </tr>
+                  <td><br></td>    
+                <tr>
+                    <td><li>Tahun:</td>
+                    <td><input type="number" name="tahun" value="2006" required></td></li>
+                  </tr>
+                  <td><br></td> 
+                <tr>
+                    <td><li>No. Hp:</td>
+                    <td><input type="tel" name="nohp" value="08XXX" required></td></li>
+                  </tr>
+                  <td><br></td> 
+                <tr>
+                    <td><li>Email:</td>
+                    <td><input type="email" name="email" value="user@domain.com" required></td></li>
+                  </tr>
+                  <td><br></td>      
+            </table
+        </ul>
+            <br><input type="submit" value="Submit">
+            <input type="reset">           
+    </article>
+ </section>
+</form>    
+  <footer>
+    <div align="right">
+      <br>Credit:
+      <br>Muhamad Luthfi Mufadel
+      <br>Achmad Kripton Nugraha<br>
+      &nbsp;
+    </div>
+  </footer>
 </body>
 </html>

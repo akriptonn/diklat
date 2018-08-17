@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	$dbname="kyou";
+	$dbname="diklat";
 	$dbuser="user";
 	$dbhost="localhost";
 	$dbpass="";
@@ -19,44 +19,29 @@
 
 	<div id="main">
 		<nav>
-		 <img src="logo.jpg" width="200" height="90" align="left">
-		 <h1 align="left"> Kyou Hobby Shop  </h1>
+		 <h1 align="left"> Diklat E-Monev  </h1>
 			<ul>
 				<li><a href="index.php">Home</a></li>
-				<li><a href="#">Products</a></li>
-				<li><a href="#">About Us </a></li>
-				<li> <b>Welcome <?php echo $_SESSION['login_user']; ?></li>
 			</ul>
 		</nav>
 	</div>
 
 
 	<div class="container">
-		<h1 align="center">Status Pemesanan</h1>
-			<form action="cek_status.php" method="get">
-
-
+		<h1 align="center">Tabel</h1>
+			<form action="showDiklat.php" method="get">
 				<label>Filter: </label> <br>
 
 
-				<label>Status Pembayaran: </label>
-				<select name="status_bayar">
+				<label>Urutkan berdasarkan </label>
+				<select name="sorts">
 				  <option value="">None</option>
-				  <option value="BELUM LUNAS">Belum Lunas</option>
-				  <option value="LUNAS">Lunas</option>
+				  <option value="NIP">Nomor Induk Pegawai</option>
+				  <option value="cname">Nama</option>
+				  <option value="TanggalLahir">Tanggal Lahir</option>
 				</select>
 
 				<br>
-
-				<label>Status Pengiriman: </label>
-				<select name="status_kirim">
-				  <option value="">None</option>
-				  <option value="1">Belum Dikirim</option>
-				  <option value="2">Belum Diterima</option>
-				  <option value="3">Sudah Diterima</option>
-				</select>
-
-				<br><br>
 
 				<label>Rows in a page:</label>
 
@@ -72,12 +57,6 @@
 
 			</form>
 
-			<form action="dash_karyawan.php" method="post">
-
-				<input type="submit" value="Kembali ke dashboard" class="btn">
-
-			</form>
-
 			<br><br>
 
 		
@@ -88,12 +67,12 @@
 
 <?php
 
-	$sql = "SELECT * FROM status";
+	$sql = "SELECT * FROM mymember";
 
-		if((isset($_GET['search']) && $_GET['search'] != "") || (isset($_GET['status_bayar']) && $_GET['status_bayar'] != "") || (isset($_GET['status_kirim']) && $_GET['status_kirim'] != ""))
+		if((isset($_GET['sorts']) && $_GET['sorts'] != ""))
 		{
 
-			 $sql = $sql . " WHERE";
+			 $sql = $sql . " ORDER BY " . $_GET['sorts'] ." ASC";
 
 			// if(isset($_GET['search']) && $_GET['search'] != ""){
 			// 	$find = $_GET['search'];
@@ -126,7 +105,6 @@
 
 		}
 
-		$sql = $sql . " ORDER BY invoice DESC";
 
 		if(isset($_GET['limit'])){
 			$sql = $sql . " LIMIT " . $_GET['limit'];	
@@ -134,7 +112,7 @@
 			$sql = $sql . " LIMIT 10";	
 		}
 
-
+	
 
 	$result = $connection->query($sql);
 
@@ -143,41 +121,22 @@
 
 <table cellpadding ="5" cellspacing ="0" border ="7" style:"color:#0066cc;" align="center">
 		<tr>
-			<th>Invoice</th>
-			<th>Pembeli</th>
-			<th>Nama Barang</th>
-			<th>Jml Beli</th>
-			<th>Total</th>
-			<th>Status Pembayaran</th>
-			<th>Resi</th>
-			<th>Waktu Kirim</th>
-			<th>Waktu Terima</th>
-			<th>Jasa Kurir</th>
-			<th>Telp. Penerima</th>
-			<th>Alamat Penerima</th>
-			<th>Pengirim</th>
+			<th>Nomor Induk Pegawai</th>
+			<th>Nama Pegawai</th>
+			<th>Tanggal Lahir</th>
 		</tr>
 
 <?php
 		//$i = 1;
 		while($row = $result->fetch_assoc()) {
 			//echo "Nama: " . $row["nama"]. " - Telepon: " . $row["telepon"]. " - Alamat: " . $row["alamat"]. "<br>";
+		if ((!($row["NIP"]==""))&&(!($row["NIP"]==" "))&&(!($row["NIP"]=="0"))){	
 ?>
 
 		<tr>
-			<td> <?php echo $row["invoice"]; ?> </td>
-			<td><?php echo $row["pembeli"]; ?> </td>
-			<td><?php echo $row["nama_barang"]; ?> </td>
-			<td><?php echo $row["jml_pembelian"]; ?> </td>
-			<td><?php echo $row["total"]; ?> </td>
-			<td><?php echo $row["ket_status"]; ?> </td>
-			<td><?php echo $row["resi"]; ?></td>
-			<td><?php echo $row["waktu_kirim"]; ?></td>
-			<td><?php echo $row["waktu_terima"]; ?></td>
-			<td><?php echo $row["kurir"]; ?></td>
-			<td><?php echo $row["telp_penerima"]; ?></td>
-			<td><?php echo $row["alamat"]; ?></td>
-			<td><?php echo $row["pengirim"]; ?></td>
+			<td> <?php echo $row["NIP"]; ?> </td>
+			<td><?php echo $row["cname"]; ?> </td>
+			<td><?php echo $row["TanggalLahir"]; }?> </td>
 		</tr>
 		
 <?php

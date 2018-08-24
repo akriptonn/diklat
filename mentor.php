@@ -1,8 +1,25 @@
+<?php
+ob_start();
+session_start();
+if(!isset($_SESSION['akun_id'])) header("location: login.php");
+
+global $koneksi;
+$nameserver = "localhost";
+$username = "root";
+$password = "";
+$namedb = "login";
+
+$koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
+if(!$koneksi) {
+  die("Koneksi gagal".mysqli_connect_error());
+}
+?>
+
 <!DOCTYPE html>
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Evaluasi Diklat</title>
+    <title>Evaluasi Mentor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -46,54 +63,46 @@
               <p style="color: blue">Evaluasi Penceramah</p>
               <p style="color: blue">Evaluasi Coach</p>
               <p style="color: blue">Evaluasi Penguji</p>
-              <p style="color: blue">Evaluasi Mentor</p>
-              <p><li style="color:blue">Evaluasi Penyelenggara</p></li>
+              <p><li style="color:blue">Evaluasi Mentor</p></li>
+              <p>Evaluasi Penyelenggara</p>
             </nav>
           <article>
               <ul>
-                <form action="file:///C:/xampp/htdocs/diklat/option.html">
+                <form action="file:///C:/xampp/htdocs/diklat/penyelenggara.html">
                   <table border="0">
-                      <tr>
-                          <td><li>Nama Diklat:</td>
-                          <td><select name="diklat">
-                              <option value="jakarta">Jakarta</option>
-                              </select></td></li>
-                        </tr>
-                        <td><br></td>
-                        <tr>
-                            <td><li>Tempat:</td>
-                            <td><select name="tempatdiklat">
-                                <option value="kalibata">Kalibata</option>
-                                </select></td></li>
-                          </tr>
-                          <td><br></td>
-                          <tr>
-                              <td><li>Durasi:</td>
-                              <td><select name="durasidiklat">
-                                  <option value="1minggu">1 Minggu</option>
-                                  </select></td></li>
-                            </tr>
-                            <td><br></td>
                     <tr>
-                      <td><li>Kelengkapan Informasi Pelatihan:</td>
-                      <td><input type="number" name="nilaidiklat1" min="0" max="100" required></td></li>
+                      <td><li>Nama Mentor:</td>
+                      <td><select name="namamentor">
+                          <option value="dinalutfia">Dina Lutfia, S.Ip., M.Si</option>
+                          <option value="dry">Dr.Y</option>
+                          </select></td></li>
+                    </tr>
+                    <td><br></td>
+                    <tr>
+                      <td><li>Kelompok:</td>
+                      <td><input type="number" name="kelompok" value="210" required></td></li>
+                    </tr>
+                    <td><br></td>
+                    <tr>
+                      <td><li>Angkatan/Tahun:</td>
+                      <td><input type="text" name="angkatan" value="22/2018" required></td></li>
+                    </tr>
+                    <td><br></td>
+                    <tr>
+                      <td><li>Kemampuan Membimbing:</td>
+                      <td><input type="number" name="kemampuanmembimbingmentor" min="0" max="100" required></td></li>
                     </tr>
                     <td><br></td>
                       <tr>
-                          <td><li>Ketersediaan dan Kebersihan Asrama, Kelas, Ruang Makan, Toilet, dan Prasarana Lainnya:</td>
-                          <td><input type="number" name="nilaidiklat2" min="0" max="100" required></td></li>
+                          <td><li>Penggunaan Metode dan Media Pembimbingan:</td>
+                          <td><input type="number" name="penggunaanmetodementor" min="0" max="100" required></td></li>
                         </tr>
                         <td><br></td>
                         <tr>
-                            <td><li>Ketersediaan, Kebersihan dan Keberfungsian Fasilitas Olah Raga, Kesehatan, Tempat Ibadah dan Sarana Lainnya:</td>
-                            <td><input type="number" name="nilaidiklat3" min="0" max="100" required></td></li>
+                            <td><li>Pemberian Motivasi Kepada Peserta:</td>
+                            <td><input type="number" name="motivasimentor" min="0" max="100" required></td></li>
                           </tr>
                           <td><br></td>
-                          <tr>
-                              <td><li>Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan:</td>
-                              <td><input type="number" name="nilaidiklat4" min="0" max="100" required></td></li>
-                            </tr>
-                            <td><br></td>  
                       <tr>
                     <td><li>Catatan/Saran:</td>
                     <td><textarea name="pesanmentor" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>
@@ -107,13 +116,14 @@
        </section>
       </form>    
         <footer>
-          <div align="right">
-            <br>Credit:
-            <br>Muhamad Luthfi Mufadel
-            <br>Achmad Kripton Nugraha<br>
-            &nbsp;
-          </div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
         </footer>
           </section>
   </body>
 </html>
+
+<?php
+mysqli_close($koneksi);
+ob_end_flush();
+?>

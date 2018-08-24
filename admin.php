@@ -14,9 +14,11 @@
 <div class="container">
   <div class="jumbotron" style="background-color:rgb(34, 80, 90); color:white">
     <h1>Pusdiklat Pegawai Kemnaker RI</h1>      
-    <h2>Isilah kedua form berikut dengan klik button.</h2>
-    <button onclick="location.href='file:///C:/xampp/htdocs/diklat/pengampu.html'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Evaluasi Peserta</button>
-    <button onclick="location.href='file:///C:/xampp/htdocs/diklat/alumni.html'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Alumni</button>
+    <h2>Anda masuk sebagai admin</h2>
+    <button onclick="location.href='file:///C:/xampp/htdocs/diklat/pengampu.html'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Update Form</button>
+    <button onclick="location.href='file:///C:/xampp/htdocs/diklat/alumni.html'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Lihat Evaluasi</button>
+    <button onclick="location.href='file:///C:/xampp/htdocs/diklat/pengampu.html'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Lihat Alumni</button>
+    <button onclick="location.href='file:///C:/xampp/htdocs/diklat/alumni.html'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Lihat Grafik</button>
     <button onclick="location.href='file:///C:/xampp/htdocs/diklat/login.html'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)"><span class="glyphicon glyphicon-log-out"></span>Log out</button>
   </div>  
 </div>

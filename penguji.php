@@ -1,3 +1,20 @@
+<?php
+ob_start();
+session_start();
+if(!isset($_SESSION['akun_id'])) header("location: login.php");
+
+global $koneksi;
+$nameserver = "localhost";
+$username = "root";
+$password = "";
+$namedb = "login";
+
+$koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
+if(!$koneksi) {
+  die("Koneksi gagal".mysqli_connect_error());
+}
+?>
+
 <!DOCTYPE html>
 <HTML>
   <head>
@@ -94,13 +111,14 @@
    </section>
   </form>    
     <footer>
-      <div align="right">
-        <br>Credit:
-        <br>Muhamad Luthfi Mufadel
-        <br>Achmad Kripton Nugraha<br>
-        &nbsp;
-      </div>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
     </footer>
       </section>
   </body>
 </html>
+
+<?php
+mysqli_close($koneksi);
+ob_end_flush();
+?>

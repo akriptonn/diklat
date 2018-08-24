@@ -24,7 +24,14 @@ if(isset($_POST['login'])) {
     $row_akun = mysqli_fetch_array($sql_login);
     $_SESSION['akun_id'] = $row_akun['id'];
     $_SESSION['akun_username'] = $row_akun['username'];
+    $_SESSION['akun_status'] = $row_akun['status'];
+
+    if($_SESSION["akun_status"]=="1") {
+      header("location: admin.php");
+    }
+    else {
     header("location: option.php");
+    }
   }else {
     header("location: login.php?login-gagal");
   }
@@ -87,7 +94,7 @@ if(isset($_POST['login'])) {
         </div>
         <?php
         if(isset($_GET['login-gagal'])) {?>
-        <div class="alert info">
+        <div class="alert">
         <span class="closebtn">&times;</span>  
         <strong> Username/password yang anda masukkan salah.</strong>
         </div>

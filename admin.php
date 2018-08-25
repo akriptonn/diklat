@@ -39,7 +39,7 @@ if(!$koneksi) {
     <button onclick="location.href='alumni.php'"type="button" class="btn btn-block btn-lg btn-block" style="background-color: yellow;color:rgb(34, 80, 90)">Alumni</button>
     <button onclick="location.href='updateform.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Update Form</button>
     <button onclick="location.href='lihatevaluasi.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Lihat Evaluasi</button>
-    <button onclick="location.href=''" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Lihat Alumni</button>
+    <button onclick="location.href='lihatalumni.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Lihat Alumni</button>
     <br>
     <button onclick="location.href='logout.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)"><span class="glyphicon glyphicon-log-out"></span>Log out</button>
   </div>  

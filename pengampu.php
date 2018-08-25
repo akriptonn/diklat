@@ -151,10 +151,12 @@ if(!$koneksi) {
                     <td><textarea name="pesanpengampu" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>
                   </tr>
                   <td><br></td>           
-            </table
+            </table>
         </ul>
             <br><input type="submit" value="Submit">
-            <input type="reset">           
+            <input type="reset">
+            <button onclick="location.href='penceramah.php'"type="button">Lanjut</button>
+            <button onclick="location.href='option.php'"type="button">Kembali</button>           
     </article>
  </section>
 </form>    

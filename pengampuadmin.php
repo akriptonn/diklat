@@ -17,7 +17,7 @@ if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
 $query = mysqli_query($koneksi, "SELECT * FROM pengampu ORDER BY pengampu.id ASC");
-$row_query = mysqli_fetch_array($query);
+
 
 ?>
 
@@ -81,7 +81,7 @@ $row_query = mysqli_fetch_array($query);
                         <td>Nilai</td>
                         <td>Predikat</td>
                     </tr>
-                    <?php if(mysqli_num_rows($query)) {?>
+                    <?php if(mysqli_num_rows($query)>0) {?>
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
                         <td><?php echo $row['id']?></td>
@@ -90,10 +90,16 @@ $row_query = mysqli_fetch_array($query);
                         <td><?php echo $row['predikat']?></td>
                     </tr>
                     <?php }?>
-                    <?php }?>         
+                    <?php }?>
+                    <tr>
+                        <td></td>
+                        <td>Rata-rata</td>
+                        <td>100</td>
+                        <td>Sangat Baik</td>
+                    </tr>         
                   </table>
-                  <br><input type="submit" value="Submit">
-                  <input type="reset">           
+                  <br>
+                  <button onclick="location.href='individu.php'"type="button">Kembali</button>             
           </article>
        </section>
       </form>    

@@ -16,7 +16,7 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM penceramah ORDER BY penceramah.id ASC");
+$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
 
 
 ?>
@@ -25,7 +25,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM penceramah ORDER BY penceramah.id
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Rekapitulasi Hasil Evaluasi Penceramah</title>
+    <title>Alumni</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -60,27 +60,29 @@ $query = mysqli_query($koneksi, "SELECT * FROM penceramah ORDER BY penceramah.id
   <body>
       <header>
           <h1>Pusdiklat Pegawai Kemnaker RI</h1>
+          <h3>Alumni</h3>
         </header>
         <section>
-            <nav>
-              <h2 style="color: rgb(34, 80, 90)">Rekapitulasi Hasil Evaluasi Penceramah</h2>
-              <p><img src="kemnakerri.jpg" width="200px"></p><br>
-              <p style="color: rgb(34, 80, 90)">Program : Pelatihan Dasar Calon PNS Golongan II </p>
-              <p style="color: rgb(34, 80, 90)">Nama Penceramah : DR.X</p>
-              <p style="color: rgb(34, 80, 90)">Jenis Ceramah : Akhlak</p>
-              <p style="color: rgb(34, 80, 90)">Hari/Tanggal : Selasa/ 31 Juli 2018</p>
-            </nav>
           <article>
               <ul>
                 <form action="">
                   <table border="1">
                     <tr>
                         <td>No.</td>
-                        <td>Butir Penilaian</td>
-                        <td>Nilai</td>
-                        <td>Predikat</td>
+                        <td>NIP</td>
+                        <td>Nama</td>
+                        <td>Tanggal Lahir</td>
+                        <td>Pangkat</td>
+                        <td>Jenis Kelamin</td>
+                        <td>Jabatan</td>
+                        <td>Unit Kerja</td>
+                        <td>Pusat/Provinsi</td>
+                        <td>Diklat/Angkatan</td>
+                        <td>Tahun</td>
+                        <td>No. Hp</td>
+                        <td>Email   </td>
                     </tr>
-                    <?php if(mysqli_num_rows($query)) {?>
+                    <?php if(mysqli_num_rows($query)>0) {?>
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
                         <td><?php echo $row['id']?></td>
@@ -98,7 +100,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM penceramah ORDER BY penceramah.id
                     </tr>             
                   </table>
                   <br>
-                  <button onclick="location.href='individu.php'"type="button">Kembali</button>      
+                  <button onclick="location.href='admin.php'"type="button">Kembali</button>             
           </article>
        </section>
       </form>    

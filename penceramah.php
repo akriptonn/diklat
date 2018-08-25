@@ -125,7 +125,9 @@ if(!$koneksi) {
               </table
           </ul>
               <br><input type="submit" value="Submit">
-              <input type="reset">           
+              <input type="reset">
+              <button onclick="location.href='coach.php'"type="button">Lanjut</button>
+              <button onclick="location.href='pengampu.php'"type="button">Kembali</button>             
       </article>
    </section>
   </form>    

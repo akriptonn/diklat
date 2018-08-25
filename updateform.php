@@ -35,12 +35,12 @@ if(!$koneksi) {
   <div class="jumbotron" style="background-color:rgb(34, 80, 90); color:white">
     <h1>Pusdiklat Pegawai Kemnaker RI</h1>      
     <h2>Update form</h2>
-    <button onclick="location.href=''" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Pengampu/Widyaiswara</button>
-    <button onclick="location.href=''"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penceramah</button>
-    <button onclick="location.href=''" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Coach</button>
-    <button onclick="location.href=''"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penguji</button>
-    <button onclick="location.href=''"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Mentor</button>
-    <button onclick="location.href=''"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penyelenggara</button>    
+    <button onclick="location.href='pengampuupdate.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Pengampu/Widyaiswara</button>
+    <button onclick="location.href='penceramahupdate.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penceramah</button>
+    <button onclick="location.href='coachupdate.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Coach</button>
+    <button onclick="location.href='pengujiupdate.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penguji</button>
+    <button onclick="location.href='mentorupdate.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Mentor</button>
+    <button onclick="location.href='penyelenggaraupdate.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penyelenggara</button>    
     <br>
     <button onclick="location.href='admin.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Kembali</button>
   </div>  

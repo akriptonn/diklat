@@ -68,7 +68,7 @@ if(!$koneksi) {
             </nav>
           <article>
               <ul>
-                <form action="file:///C:/xampp/htdocs/diklat/penguji.html">
+                <form action="file:///C:/xampp/htdocs/diklat/penguji.php" method="post">
                   <table border="0">
                     <tr>
                       <td><li>Nama Coach:</td>

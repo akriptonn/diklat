@@ -10,6 +10,9 @@ $password = "";
 $namedb = "login";
 
 $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
+
+
+
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
@@ -68,7 +71,7 @@ if(!$koneksi) {
       </nav>
     <article>
         <ul>
-          <form action="file:///C:/xampp/htdocs/diklat/penceramah.html">
+          <form action="penceramah.php" method="post">
             <table border="0">
               <tr>
                 <td><li>Program:</td>
@@ -153,7 +156,7 @@ if(!$koneksi) {
                   <td><br></td>           
             </table>
         </ul>
-            <br><input type="submit" value="Submit">
+            <br><input type="submit" id="submit" name="submit" value="Submit">
             <input type="reset">
             <button onclick="location.href='penceramah.php'"type="button">Lanjut</button>
             <button onclick="location.href='option.php'"type="button">Kembali</button>           
@@ -169,6 +172,68 @@ if(!$koneksi) {
 </html>
 
 <?php
+if (isset($_POST['submit'])){
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(1,";
+  $sql = $sql . $_POST['penguasaanpengampu'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(2,";
+  $sql = $sql . $_POST['caramenyajikanpengampu'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(3,";
+  $sql = $sql . $_POST['ketepatanwaktupengampu'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(4,";
+  $sql = $sql . $_POST['penggunaanmetodepengampu'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(5,";
+  $sql = $sql . $_POST['sikappengampu'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(6,";
+  $sql = $sql . $_POST['kerapihanberpakaian'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(7,";
+  $sql = $sql . $_POST['caramenjawabpengampu'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(8,";
+  $sql = $sql . $_POST['bahasa'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(9,";
+  $sql = $sql . $_POST['motivasipengampu'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO pengampunilai(n_id,nilai,nama_pengajar,mata_pelatihan,program,tanggalWaktu) values(10,";
+  $sql = $sql . $_POST['kerjasama'] . "," ;
+  $sql = $sql . "'". $_POST['namapengajar'] . "'" . "," . "'" . $_POST['matapelatihan'] . "'" . "," . "'" . $_POST['program'] .  "'" . "," .  "'" . $_POST['tanggalpengampu'] . "'" . ");";
+  // $sql = $sql . "NULL"
+  $result = $koneksi->query($sql);
+
+}
 mysqli_close($koneksi);
 ob_end_flush();
 ?>

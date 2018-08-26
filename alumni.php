@@ -147,7 +147,7 @@ if(!$koneksi) {
                     <td><input type="email" name="email" value="user@domain.com" required></td></li>
                   </tr>
                   <td><br></td>      
-            </table
+            </table>
         </ul>
             <br><input type="submit" value="Submit">
             <input type="reset">  

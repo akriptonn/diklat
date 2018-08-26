@@ -3,8 +3,8 @@ ob_start();
 session_start();
 if(!isset($_SESSION['akun_id'])) header("location: login.php");
 elseif($_SESSION['akun_status']!="1"){
-    header("location: option.php");
-  }
+  header("location: option.php");
+}
 
 global $koneksi;
 $nameserver = "localhost";
@@ -16,13 +16,16 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
+$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
+
+
 ?>
 
 <!DOCTYPE html>
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Update Mentor</title>
+    <title>Peringkat</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -55,38 +58,37 @@ if(!$koneksi) {
               color: white}
   </style>
   <body>
-    <header>
-      <h1>Pusdiklat Pegawai Kemnaker RI</h1>
-    </header>
-    <section>
-      <nav>
-        <h2 style="color: rgb(34, 80, 90)">Update Mentor</h2>
-        <p><img src="kemnakerri.jpg" width="200px"></p><br>
-      </nav>
-    <article>
-        <ul>
-          <form action="">
-            <table border="0">
-              <tr>
-                <td><li>Nama Mentor:</td>
-                <td><input type="text" name="program">
-                    </td></li>
-              </tr>
-              <td><br></td>    
-            </table>
-        </ul>
-            <br><input type="submit" value="Submit">
-            <input type="reset">        
-            <button onclick="location.href='updateform.php'"type="button">Kembali</button>              
-    </article>
- </section>
-</form>    
-  <footer>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-  </footer>
-    </section>  
-</body>
+      <header>
+          <h1>Pusdiklat Pegawai Kemnaker RI</h1>
+          <h3>Peringkat</h3>
+          <h5>Rekapitulasi Evaluasi Widyaiswara</h5>
+          <h5>Program</h5>
+        </header>
+        <section>
+          <article>
+              <ul>
+                <form action="">
+                  <table border="1">
+                    <tr>
+                        <td>No.</td>
+                        <td>Peringkat</td>
+                        <td>Mata Diklat</td>
+                        <td>Nama Widyaiswara</td>
+                        <td>Nilai Rata-Rata</td>
+                        <td>Predikat</td>
+                    </tr>           
+                  </table>
+                  <br>
+                  <button onclick="location.href='lihatevaluasi.php'"type="button">Kembali</button>             
+          </article>
+       </section>
+      </form>    
+        <footer>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        </footer>
+          </section>
+  </body>
 </html>
 
 <?php

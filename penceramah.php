@@ -98,6 +98,11 @@ if(!$koneksi) {
                   </tr>
                   <td><br></td>
                   <tr>
+                        <td><li>Angkatan/Tahun:</td>
+                        <td><input type="text" name="angkatan" value="22/2018" required></td></li>
+                      </tr>
+                      <td><br></td>
+                  <tr>
                       <td><li>Penguasaan Materi:</td>
                       <td><input type="number" name="penguasaanpenceramah" min="0" max="100" required></td></li>
                     </tr>

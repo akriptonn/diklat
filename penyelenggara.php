@@ -13,6 +13,22 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
+
+if(isset($_POST['diklat'])){
+  $insertdiklat = $_POST['namadiklat'];
+  $inserttempat = $_POST['tempatdiklat'];
+  $insertdurasi = $_POST['durasidiklat'];
+  $insertdiklat1 = $_POST['nilaidiklat1'];
+  $insertdiklat2 = $_POST['nilaidiklat2'];
+  $insertdiklat3 = $_POST['nilaidiklat3'];
+  $insertdiklat4 = $_POST['nilaidiklat4'];
+  mysqli_query($koneksi, "INSERT INTO penyelenggara VALUES('','$insertdiklat','$inserttempat','$insertdurasi','Kelengkapan Informasi Pelatihan','$insertdiklat1','','1')");
+  mysqli_query($koneksi, "INSERT INTO penyelenggara VALUES('','$insertdiklat','$inserttempat','$insertdurasi','Ketersediaan dan Kebersihan Asrama, Kelas, Ruang Makan, Toilet, dan Prasarana Lainnya','$insertdiklat2','','2')");
+  mysqli_query($koneksi, "INSERT INTO penyelenggara VALUES('','$insertdiklat','$inserttempat','$insertdurasi','Ketersediaan, Kebersihan dan Keberfungsian Fasilitas Olah Raga, Kesehatan, Tempat Ibadah dan Sarana Lainnya','$insertdiklat3','','3')");
+  mysqli_query($koneksi, "INSERT INTO penyelenggara VALUES('','$insertdiklat','$inserttempat','$insertdurasi','Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan','$insertdiklat4','','4')");
+  header("location: option.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -68,11 +84,11 @@ if(!$koneksi) {
             </nav>
           <article>
               <ul>
-                <form action="file:///C:/xampp/htdocs/diklat/option.php" method="post">
+                <form method="post">
                   <table border="0">
                       <tr>
                           <td><li>Nama Diklat:</td>
-                          <td><select name="diklat">
+                          <td><select name="namadiklat">
                               <option value="jakarta">Jakarta</option>
                               </select></td></li>
                         </tr>
@@ -87,7 +103,7 @@ if(!$koneksi) {
                           <tr>
                               <td><li>Durasi:</td>
                               <td><select name="durasidiklat">
-                                  <option value="1minggu">1 Minggu</option>
+                                  <option value="1 minggu">1 Minggu</option>
                                   </select></td></li>
                             </tr>
                             <td><br></td>
@@ -118,7 +134,7 @@ if(!$koneksi) {
                   <td><br></td>         
                   </table>
               </ul>
-                  <br><input type="submit" value="Submit">
+                  <br><input type="submit" name="diklat">
                   <input type="reset">  
                   <button onclick="location.href='option.php'"type="button">Lanjut</button>
                   <button onclick="location.href='mentor.php'"type="button">Kembali</button>           

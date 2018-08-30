@@ -164,7 +164,7 @@ if(!$koneksi) {
             <br><input type="submit" id="submit" name="submit" value="Submit">
             <input type="reset">
             <button onclick="location.href='penceramah.php'"type="button">Lanjut</button>
-            <button onclick="location.href='option.php'"type="button">Kembali</button>           
+            <button onclick="location.href='admin.php'"type="button">Kembali</button>           
     </article>
  </section>
 </form>    

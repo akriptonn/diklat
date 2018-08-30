@@ -136,7 +136,7 @@ if(isset($_POST['diklat'])){
               </ul>
                   <br><input type="submit" name="diklat">
                   <input type="reset">  
-                  <button onclick="location.href='option.php'"type="button">Lanjut</button>
+                  <button onclick="location.href='admin.php'"type="button">Lanjut</button>
                   <button onclick="location.href='mentor.php'"type="button">Kembali</button>           
           </article>
        </section>

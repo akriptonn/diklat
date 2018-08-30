@@ -2,9 +2,12 @@
 ob_start();
 session_start();
 if(!isset($_SESSION['akun_id'])) header("location: login.php");
-elseif($_SESSION['akun_status']!="1"){
-    header("location: option.php");
-  }
+elseif($_SESSION['akun_status']=="0"){
+  header("location: option.php");
+}
+elseif($_SESSION['akun_status']=="2"){
+  header("location: evaluator.php");
+}
 
 global $koneksi;
 $nameserver = "localhost";

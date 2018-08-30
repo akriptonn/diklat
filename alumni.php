@@ -13,6 +13,19 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
+
+if(isset($_POST['opsi1'])){
+  if($_SESSION["akun_status"]=="1") {
+    header("location: admin.php");
+  }
+  elseif($_SESSION["akun_status"]=="2") {
+    header("location: evaluator.php");
+  }
+  else {
+  header("location: option.php");
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +76,7 @@ if(!$koneksi) {
 
     <article>
         <ul>
-          <form action="file:///C:/xampp/htdocs/diklat/option.html">
+          <form method="post">
             <table border="0">
               <tr>
                 <td><li>NIP:</td>
@@ -151,7 +164,7 @@ if(!$koneksi) {
         </ul>
             <br><input type="submit" value="Submit">
             <input type="reset">  
-            <button onclick="location.href='option.php'"type="button">Kembali</button>           
+            <button onclick="location.href='admin.php'"type="button">Kembali</button>              
     </article>
  </section>
 </form>    

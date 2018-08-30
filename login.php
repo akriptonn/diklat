@@ -29,6 +29,9 @@ if(isset($_POST['login'])) {
     if($_SESSION["akun_status"]=="1") {
       header("location: admin.php");
     }
+    elseif($_SESSION["akun_status"]=="2") {
+      header("location: evaluator.php");
+    }
     else {
     header("location: option.php");
     }

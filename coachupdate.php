@@ -76,7 +76,8 @@ if(!$koneksi) {
             </table>
         </ul>
             <br><input type="submit" value="Submit">
-            <input type="reset">           
+            <input type="reset">       
+            <button onclick="location.href='updateform.php'"type="button">Kembali</button>               
     </article>
  </section>
 </form>    

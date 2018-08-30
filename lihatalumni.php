@@ -81,22 +81,6 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
                         <td>Tahun</td>
                         <td>No. Hp</td>
                         <td>Email   </td>
-                    </tr>
-                    <?php if(mysqli_num_rows($query)>0) {?>
-                    <?php while($row = mysqli_fetch_array($query)) {?>
-                    <tr>
-                        <td><?php echo $row['id']?></td>
-                        <td><?php echo $row['butir penilaian']?></td>
-                        <td><?php echo $row['nilai']?></td>
-                        <td><?php echo $row['predikat']?></td>
-                    </tr>
-                    <?php }?>
-                    <?php }?>
-                    <tr>
-                        <td></td>
-                        <td>Rata-rata</td>
-                        <td>100</td>
-                        <td>Sangat Baik</td>
                     </tr>             
                   </table>
                   <br>

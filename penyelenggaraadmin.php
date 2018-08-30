@@ -71,7 +71,6 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
             </nav>
           <article>
               <ul>
-                <form action="">
                   <table border="1">
                     <tr>
                         <td>No.</td>
@@ -82,7 +81,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
                     <?php if(mysqli_num_rows($query)>0) {?>
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
-                        <td><?php echo $row['id']?></td>
+                        <td><?php echo $row['urut']?></td>
                         <td><?php echo $row['butir penilaian']?></td>
                         <td><?php echo $row['nilai']?></td>
                         <td><?php echo $row['predikat']?></td>
@@ -97,10 +96,16 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
                     </tr>             
                   </table>
                   <br>
+                  Komentar
+                  <table border="1">
+                    <tr>
+                        <td>Komentar</td>
+                    </tr>
+                    </table>
+                  <br>
                   <button onclick="location.href='individu.php'"type="button">Kembali</button>             
           </article>
-       </section>
-      </form>    
+       </section>  
         <footer>
             <p>&nbsp;</p>
             <p>&nbsp;</p>

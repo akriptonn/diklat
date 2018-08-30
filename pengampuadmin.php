@@ -73,7 +73,6 @@ $query = mysqli_query($koneksi, "SELECT * FROM pengampu ORDER BY pengampu.id ASC
             </nav>
           <article>
               <ul>
-                <form action="">
                   <table border="1">
                     <tr>
                         <td>No.</td>
@@ -99,10 +98,16 @@ $query = mysqli_query($koneksi, "SELECT * FROM pengampu ORDER BY pengampu.id ASC
                     </tr>         
                   </table>
                   <br>
+                  Komentar
+                  <table border="1">
+                    <tr>
+                        <td>Komentar</td>
+                    </tr>
+                    </table>
+                  <br>
                   <button onclick="location.href='individu.php'"type="button">Kembali</button>             
           </article>
-       </section>
-      </form>    
+       </section>   
         <footer>
             <p>&nbsp;</p>
             <p>&nbsp;</p>

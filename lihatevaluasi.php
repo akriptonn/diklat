@@ -36,8 +36,8 @@ if(!$koneksi) {
     <h1>Pusdiklat Pegawai Kemnaker RI</h1>      
     <h2>Hasil evaluasi</h2>
     <button onclick="location.href='individu.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Individu</button>
-    <button onclick="location.href=''"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Peringkat</button>
-    <button onclick="location.href=''" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Grafik</button>
+    <button onclick="location.href='peringkat.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Peringkat</button>
+    <button onclick="location.href='grafik.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Grafik</button>
     <br>    
     <button onclick="location.href='admin.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Kembali</button>
   </div>  

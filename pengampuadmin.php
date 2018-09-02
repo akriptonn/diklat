@@ -19,7 +19,7 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM pengampu ORDER BY pengampu.id ASC");
+$query = mysqli_query($koneksi, "SELECT id, butir_penilaian,Nilai FROM pengampunilai,butirnilai where id=id_butirnilai ORDER BY id ASC");
 
 
 ?>
@@ -87,24 +87,40 @@ $query = mysqli_query($koneksi, "SELECT * FROM pengampu ORDER BY pengampu.id ASC
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
                         <td><?php echo $row['id']?></td>
-                        <td><?php echo $row['butir penilaian']?></td>
-                        <td><?php echo $row['nilai']?></td>
-                        <td><?php echo $row['predikat']?></td>
+                        <td><?php echo $row['butir_penilaian']?></td>
+                        <td><?php echo $row['Nilai']?></td>
+                        <td><?php $simpan = $row['Nilai']; if ($simpan >= 85){ echo "A";} else if ($simpan >= 60){echo "B";} else {echo "C";} ?></td>
                     </tr>
                     <?php }?>
-                    <?php }?>
+                    <?php } 
+                      $query = mysqli_query($koneksi, "SELECT averages FROM reratanilai;");
+                      $avg = 100;
+                      if(mysqli_num_rows($query)>0){
+                        while($row = mysqli_fetch_array($query)){
+                          $avg = $row['averages'];
+                        }
+                      }
+
+                      $query = mysqli_query($koneksi, "SELECT saran FROM saranpengampu;");
+                      $adv = "Komentar";
+                      if(mysqli_num_rows($query)>0){
+                        while($row = mysqli_fetch_array($query)){
+                          $adv = $row['saran'];
+                        }
+                      }
+                    ?>
                     <tr>
                         <td></td>
                         <td>Rata-rata</td>
-                        <td>100</td>
-                        <td>Sangat Baik</td>
+                        <td><?php echo $avg ?></td>
+                        <td><?php $simpan = $row['Nilai']; if ($simpan >= 85){ echo "A";} else if ($simpan >= 60){echo "B";} else {echo "C";} ?></td>
                     </tr>         
                   </table>
                   <br>
                   Komentar
                   <table border="1">
                     <tr>
-                        <td>Komentar</td>
+                        <td><?php echo $adv ?></td>
                     </tr>
                     </table>
                   <br>

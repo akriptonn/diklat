@@ -19,7 +19,8 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
+$rans = 0;
+$query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM reratanilai where program='Pelatihan Dasar Calon PNS Golongan II' ORDER BY averages DESC");
 
 
 ?>
@@ -73,13 +74,22 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
                 <form action="">
                   <table border="1">
                     <tr>
-                        <td>No.</td>
                         <td>Peringkat</td>
                         <td>Mata Diklat</td>
                         <td>Nama Widyaiswara</td>
                         <td>Nilai Rata-Rata</td>
                         <td>Predikat</td>
-                    </tr>           
+                    </tr>       
+                    <?php if(mysqli_num_rows($query)>0) {?>
+                    <?php while($row = mysqli_fetch_array($query)) {?>
+                    <tr>
+                        <td><?php $rans = $rans + 1; echo $rans?></td>
+                        <td><?php echo $row['matpel']?></td>
+                        <td><?php echo $row['NamaPengajar']?></td>
+                        <td><?php echo $row['averages']?></td>
+                        <td><?php $simpan = $row['averages']; if ($simpan >= 85){ echo "A";} else if ($simpan >= 60){echo "B";} else {echo "C";} ?></td>
+                    </tr>
+                    <?php }}?>    
                   </table>
                   <br>
                   <button onclick="location.href='lihatevaluasi.php'"type="button">Kembali</button>             

@@ -107,6 +107,12 @@ if(isset($_POST['diklat'])){
                                   </select></td></li>
                             </tr>
                             <td><br></td>
+                            <tr>
+                            <td>Penyelenggaraan Diklat</td>
+                            </tr>
+                            <tr>
+                            <td>Pelayaan Kepada Peserta</td>
+                            </tr>
                     <tr>
                       <td><li>Kelengkapan Informasi Pelatihan:</td>
                       <td><input type="number" name="nilaidiklat1" min="0" max="100" required></td></li>
@@ -126,10 +132,15 @@ if(isset($_POST['diklat'])){
                               <td><li>Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan:</td>
                               <td><input type="number" name="nilaidiklat4" min="0" max="100" required></td></li>
                             </tr>
-                            <td><br></td>  
+                            <td><br></td>
+                            <tr>
+                              <td><li>Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan:</td>
+                              <td><input type="number" name="nilaidiklat4" min="0" max="100" required></td></li>
+                            </tr>
+                            <td><br></td>    
                       <tr>
                     <td><li>Catatan/Saran:</td>
-                    <td><textarea name="pesanmentor" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>
+                    <td><textarea name="pesanpenyelenggara1" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>
                   </tr>
                   <td><br></td>         
                   </table>

@@ -68,7 +68,7 @@ if(!$koneksi) {
         </nav>
       <article>
           <ul>
-            <form method="post">
+            <form action="penceramah.php" method="post">
               <table border="0">
                 <tr>
                   <td><li>Program:</td>

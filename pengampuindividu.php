@@ -19,8 +19,7 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
-
+$query = mysqli_query($koneksi, "SELECT id, butir_penilaian,AVG(Nilai) as Nilai FROM pengampunilai,butirnilai where id=id_butirnilai GROUP BY id,butir_penilaian ORDER BY id ASC;");
 
 ?>
 
@@ -87,8 +86,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
                         <td><?php echo $row['id']?></td>
-                        <td><?php echo $row['butir penilaian']?></td>
-                        <td><?php echo $row['nilai']?></td>
+                        <td><?php echo $row['butir_penilaian']?></td>
+                        <td><?php echo $row['Nilai']?></td>
                         <td><?php echo $row['predikat']?></td>
                     </tr>
                     <?php }?>

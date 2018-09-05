@@ -19,7 +19,8 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelenggara.id ASC");
+$rans = 0;
+$query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM reratanilai where program='Pelatihan Dasar Calon PNS Golongan II' ORDER BY averages DESC");
 
 
 ?>
@@ -28,7 +29,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Rekapitulasi Hasil Evaluasi Penyelenggara</title>
+    <title>Peringkat Mentor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -63,52 +64,36 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
   <body>
       <header>
           <h1>Pusdiklat Pegawai Kemnaker RI</h1>
+          <h3>Peringkat</h3>
+          <h5>Rekapitulasi Evaluasi Mentor</h5>
         </header>
         <section>
-            <nav>
-              <h2 style="color: rgb(34, 80, 90)">Rekapitulasi Hasil Evaluasi Penyelenggara</h2>
-              <p><img src="kemnakerri.jpg" width="200px"></p><br>
-              <p style="color: rgb(34, 80, 90)">Nama Diklat :</p>
-              <p style="color: rgb(34, 80, 90)">Tempat :</p>
-              <p style="color: rgb(34, 80, 90)">Durasi :</p>
-            </nav>
           <article>
               <ul>
+                <form action="">
                   <table border="1">
                     <tr>
-                        <td>No.</td>
-                        <td>Butir Penilaian</td>
-                        <td>Nilai</td>
+                        <td>Peringkat</td>
+                        <td>Nama Mentor</td>
+                        <td>Nilai Rata-Rata</td>
                         <td>Predikat</td>
-                    </tr>
+                    </tr>       
                     <?php if(mysqli_num_rows($query)>0) {?>
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
-                        <td><?php echo $row['urut']?></td>
-                        <td><?php echo $row['butir penilaian']?></td>
-                        <td><?php echo $row['nilai']?></td>
-                        <td><?php echo $row['predikat']?></td>
+                        <td><?php $rans = $rans + 1; echo $rans?></td>
+                        <td><?php echo $row['matpel']?></td>
+                        <td><?php echo $row['NamaPengajar']?></td>
+                        <td><?php echo $row['averages']?></td>
+                        <td><?php $simpan = $row['averages']; if ($simpan >= 85){ echo "A";} else if ($simpan >= 60){echo "B";} else {echo "C";} ?></td>
                     </tr>
-                    <?php }?>
-                    <?php }?>
-                    <tr>
-                        <td></td>
-                        <td>Rata-rata</td>
-                        <td>100</td>
-                        <td>Sangat Baik</td>
-                    </tr>             
+                    <?php }}?>    
                   </table>
                   <br>
-                  Komentar
-                  <table border="1">
-                    <tr>
-                        <td>Komentar</td>
-                    </tr>
-                    </table>
-                  <br>
-                  <button onclick="location.href='lihatevaluasi.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='mentoradmin.php'"type="button">Kembali</button>             
           </article>
-       </section>  
+       </section>
+      </form>    
         <footer>
             <p>&nbsp;</p>
             <p>&nbsp;</p>

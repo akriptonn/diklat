@@ -19,7 +19,8 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
+$rans = 0;
+$query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM reratanilai where program='Pelatihan Dasar Calon PNS Golongan II' ORDER BY averages DESC");
 
 
 ?>
@@ -28,7 +29,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Grafik</title>
+    <title>Peringkat Penguji</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -63,16 +64,33 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
   <body>
       <header>
           <h1>Pusdiklat Pegawai Kemnaker RI</h1>
+          <h3>Peringkat</h3>
+          <h5>Rekapitulasi Evaluasi Penguji</h5>
         </header>
         <section>
-            <nav>
-              <h2 style="color: rgb(34, 80, 90)">Grafik</h2>
-              <p><img src="kemnakerri.jpg" width="200px"></p><br>
-            </nav>
           <article>
-              
+              <ul>
+                <form action="">
+                  <table border="1">
+                    <tr>
+                        <td>Peringkat</td>
+                        <td>Nama Penguji</td>
+                        <td>Nilai Rata-Rata</td>
+                        <td>Predikat</td>
+                    </tr>       
+                    <?php if(mysqli_num_rows($query)>0) {?>
+                    <?php while($row = mysqli_fetch_array($query)) {?>
+                    <tr>
+                        <td><?php $rans = $rans + 1; echo $rans?></td>
+                        <td><?php echo $row['matpel']?></td>
+                        <td><?php echo $row['NamaPengajar']?></td>
+                        <td><?php echo $row['averages']?></td>
+                        <td><?php $simpan = $row['averages']; if ($simpan >= 85){ echo "A";} else if ($simpan >= 60){echo "B";} else {echo "C";} ?></td>
+                    </tr>
+                    <?php }}?>    
+                  </table>
                   <br>
-                  <button onclick="location.href='lihatevaluasi.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='pengujiadmin.php'"type="button">Kembali</button>             
           </article>
        </section>
       </form>    

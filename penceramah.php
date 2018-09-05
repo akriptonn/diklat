@@ -94,7 +94,7 @@ if(!$koneksi) {
                   <td><br></td>
                 <tr>
                     <td><li>Tanggal:</td>
-                    <td><input type="date" name="tanggalceramah" required></td></li>
+                    <td><input type="datetime-local" name="tanggalceramah" required></td></li>
                   </tr>
                   <td><br></td>
                   <tr>

@@ -38,9 +38,12 @@ if(!$koneksi) {
   <div class="jumbotron" style="background-color:rgb(34, 80, 90); color:white">
     <h1>Pusdiklat Pegawai Kemnaker RI</h1>      
     <h2>Hasil evaluasi</h2>
-    <button onclick="location.href='individu.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Individu</button>
-    <button onclick="location.href='peringkat.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Peringkat</button>
-    <button onclick="location.href='grafik.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Grafik</button>
+    <button onclick="location.href='pengampuadmin.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Pengampu/Widyaiswara</button>
+    <button onclick="location.href='penceramahadmin.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penceramah</button>
+    <button onclick="location.href='coachadmin.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Coach</button>
+    <button onclick="location.href='pengujiadmin.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penguji</button>
+    <button onclick="location.href='mentoradmin.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Mentor</button>
+    <button onclick="location.href='penyelenggaraadmin.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Penyelenggara</button>
     <br>    
     <button onclick="location.href='admin.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Kembali</button>
   </div>  

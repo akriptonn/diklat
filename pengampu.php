@@ -96,7 +96,7 @@ if(!$koneksi) {
                 <td><br></td>
               <tr>
                   <td><li>Tanggal dan Waktu:</td>
-                  <td><input type="date" name="tanggalpengampu" required></td></li>
+                  <td><input type="datetime-local" name="tanggalpengampu" required></td></li>
                 </tr>
                 <td><br></td>
                 <tr>

@@ -19,8 +19,7 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$rans = 0;
-$query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM reratanilai where program='Pelatihan Dasar Calon PNS Golongan II' ORDER BY averages DESC");
+$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
 
 
 ?>
@@ -29,7 +28,7 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM rerata
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Peringkat</title>
+    <title>Rekapitulasi Hasil Evaluasi Coach</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -64,38 +63,52 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM rerata
   <body>
       <header>
           <h1>Pusdiklat Pegawai Kemnaker RI</h1>
-          <h3>Peringkat</h3>
-          <h5>Rekapitulasi Evaluasi Widyaiswara</h5>
-          <h5>Program</h5>
         </header>
         <section>
+            <nav>
+              <h2 style="color: rgb(34, 80, 90)">Rekapitulasi Hasil Evaluasi Coach</h2>
+              <p><img src="kemnakerri.jpg" width="200px"></p><br>
+              <p style="color: rgb(34, 80, 90)">Nama Coach :</p>
+              <p style="color: rgb(34, 80, 90)">Kelompok :</p>
+              <p style="color: rgb(34, 80, 90)">Angkatan/Tahun :</p>
+            </nav>
           <article>
               <ul>
-                <form action="">
                   <table border="1">
                     <tr>
-                        <td>Peringkat</td>
-                        <td>Mata Diklat</td>
-                        <td>Nama Widyaiswara</td>
-                        <td>Nilai Rata-Rata</td>
+                        <td>No.</td>
+                        <td>Butir Penilaian</td>
+                        <td>Nilai</td>
                         <td>Predikat</td>
-                    </tr>       
+                    </tr>
                     <?php if(mysqli_num_rows($query)>0) {?>
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
-                        <td><?php $rans = $rans + 1; echo $rans?></td>
-                        <td><?php echo $row['matpel']?></td>
-                        <td><?php echo $row['NamaPengajar']?></td>
-                        <td><?php echo $row['averages']?></td>
-                        <td><?php $simpan = $row['averages']; if ($simpan >= 85){ echo "A";} else if ($simpan >= 60){echo "B";} else {echo "C";} ?></td>
+                        <td><?php echo $row['id']?></td>
+                        <td><?php echo $row['butir penilaian']?></td>
+                        <td><?php echo $row['nilai']?></td>
+                        <td><?php echo $row['predikat']?></td>
                     </tr>
-                    <?php }}?>    
+                    <?php }?>
+                    <?php }?>
+                    <tr>
+                        <td></td>
+                        <td>Rata-rata</td>
+                        <td>100</td>
+                        <td>Sangat Baik</td>
+                    </tr>             
                   </table>
                   <br>
-                  <button onclick="location.href='lihatevaluasi.php'"type="button">Kembali</button>             
+                  Komentar
+                  <table border="1">
+                    <tr>
+                        <td>Komentar</td>
+                    </tr>
+                    </table>
+                  <br>
+                  <button onclick="location.href='coachadmin.php'"type="button">Kembali</button>             
           </article>
-       </section>
-      </form>    
+       </section>  
         <footer>
             <p>&nbsp;</p>
             <p>&nbsp;</p>

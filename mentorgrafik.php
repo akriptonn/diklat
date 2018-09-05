@@ -19,7 +19,7 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelenggara.id ASC");
+$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
 
 
 ?>
@@ -28,7 +28,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Rekapitulasi Hasil Evaluasi Penyelenggara</title>
+    <title>Grafik Mentor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -66,49 +66,16 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
         </header>
         <section>
             <nav>
-              <h2 style="color: rgb(34, 80, 90)">Rekapitulasi Hasil Evaluasi Penyelenggara</h2>
+              <h2 style="color: rgb(34, 80, 90)">Grafik Mentor</h2>
               <p><img src="kemnakerri.jpg" width="200px"></p><br>
-              <p style="color: rgb(34, 80, 90)">Nama Diklat :</p>
-              <p style="color: rgb(34, 80, 90)">Tempat :</p>
-              <p style="color: rgb(34, 80, 90)">Durasi :</p>
             </nav>
           <article>
-              <ul>
-                  <table border="1">
-                    <tr>
-                        <td>No.</td>
-                        <td>Butir Penilaian</td>
-                        <td>Nilai</td>
-                        <td>Predikat</td>
-                    </tr>
-                    <?php if(mysqli_num_rows($query)>0) {?>
-                    <?php while($row = mysqli_fetch_array($query)) {?>
-                    <tr>
-                        <td><?php echo $row['urut']?></td>
-                        <td><?php echo $row['butir penilaian']?></td>
-                        <td><?php echo $row['nilai']?></td>
-                        <td><?php echo $row['predikat']?></td>
-                    </tr>
-                    <?php }?>
-                    <?php }?>
-                    <tr>
-                        <td></td>
-                        <td>Rata-rata</td>
-                        <td>100</td>
-                        <td>Sangat Baik</td>
-                    </tr>             
-                  </table>
+              
                   <br>
-                  Komentar
-                  <table border="1">
-                    <tr>
-                        <td>Komentar</td>
-                    </tr>
-                    </table>
-                  <br>
-                  <button onclick="location.href='lihatevaluasi.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='mentoradmin.php'"type="button">Kembali</button>             
           </article>
-       </section>  
+       </section>
+      </form>    
         <footer>
             <p>&nbsp;</p>
             <p>&nbsp;</p>

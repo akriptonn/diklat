@@ -108,10 +108,7 @@ if(isset($_POST['diklat'])){
                             </tr>
                             <td><br></td>
                             <tr>
-                            <td>Penyelenggaraan Diklat</td>
-                            </tr>
-                            <tr>
-                            <td>Pelayaan Kepada Peserta</td>
+                            <td><h4 style="color: rgb(34, 80, 90)">a. Pelayaan Kepada Peserta</h4></td>
                             </tr>
                     <tr>
                       <td><li>Kelengkapan Informasi Pelatihan:</td>
@@ -137,7 +134,25 @@ if(isset($_POST['diklat'])){
                               <td><li>Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan:</td>
                               <td><input type="number" name="nilaidiklat4" min="0" max="100" required></td></li>
                             </tr>
-                            <td><br></td>    
+                            <td><br></td>
+                            <tr>
+                            <td><h4 style="color: rgb(34, 80, 90)">b. Pelayanan Kepada Pengajar, Penceramah, dan Tenaga Kediklatan Lainnya</h4></td>
+                            </tr>
+                    <tr>
+                      <td><li>Kelengkapan Informasi Diklat:</td>
+                      <td><input type="number" name="nilaidiklat5" min="0" max="100" required></td></li>
+                    </tr>
+                    <td><br></td>
+                      <tr>
+                          <td><li>Ketepatan Waktu Menghubungi Pengajar, Penceramah, dan Tenaga Kediklatan Lainnya:</td>
+                          <td><input type="number" name="nilaidiklat6" min="0" max="100" required></td></li>
+                        </tr>
+                        <td><br></td>
+                        <tr>
+                            <td><li>Ketersediaan, Kelengkapan, dan Keberfungsian Sarana Pengajaran Dalam Kelas:</td>
+                            <td><input type="number" name="nilaidiklat7" min="0" max="100" required></td></li>
+                          </tr>
+                          <td><br></td>     
                       <tr>
                     <td><li>Catatan/Saran:</td>
                     <td><textarea name="pesanpenyelenggara1" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>

@@ -169,13 +169,9 @@ if(isset($_POST['opsi1'])){
  </section>
 </form>    
   <footer>
-    <div align="right">
-      <br>Credit:
-      <br>Muhamad Luthfi Mufadel
-      <br>Achmad Kripton Nugraha<br>
-      &nbsp;
-    </div>
-  </footer>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        </footer>
 </body>
 </html>
 

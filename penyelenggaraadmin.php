@@ -19,104 +19,34 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelenggara.id ASC");
-
-
 ?>
 
 <!DOCTYPE html>
-<HTML>
-  <head>
-    <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Rekapitulasi Hasil Evaluasi Penyelenggara</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  </head>
-  <style>
-      * {box-sizing:border-box;}
-      body{font-family: Arial,Arial, Helvetica, sans-serif;}
-      header{ background-color:rgb(34, 80, 90);
-              padding:30px;
-              text-align: center;
-              font-size: 35px;
-              color:white;}
-      section{display: -webkit-flex;
-              display: flex}
-      nav{    -webkit-flex:2;
-              -ms-flex:2;
-              flex:2;
-              text-align: center;
-              background:rgb(255, 255, 255);
-              padding:10px}
-      nav ul{ list-style-type: none;
-              padding:0}
-      article{-webkit-flex: 3;
-              -ms-flex: 3;
-              flex: 3;
-              background-color: rgb(255, 255, 255);
-              padding: 10px;}
-      footer{ background-color: rgb(34, 80, 90);
-              padding: 10px;
-              text-align: center;
-              color: white}
-  </style>
-  <body>
-      <header>
-          <h1>Pusdiklat Pegawai Kemnaker RI</h1>
-        </header>
-        <section>
-            <nav>
-              <h2 style="color: rgb(34, 80, 90)">Rekapitulasi Hasil Evaluasi Penyelenggara</h2>
-              <p><img src="kemnakerri.jpg" width="200px"></p><br>
-              <p style="color: rgb(34, 80, 90)">Nama Diklat :</p>
-              <p style="color: rgb(34, 80, 90)">Tempat :</p>
-              <p style="color: rgb(34, 80, 90)">Durasi :</p>
-            </nav>
-          <article>
-              <ul>
-                  <table border="1">
-                    <tr>
-                        <td>No.</td>
-                        <td>Butir Penilaian</td>
-                        <td>Nilai</td>
-                        <td>Predikat</td>
-                    </tr>
-                    <?php if(mysqli_num_rows($query)>0) {?>
-                    <?php while($row = mysqli_fetch_array($query)) {?>
-                    <tr>
-                        <td><?php echo $row['urut']?></td>
-                        <td><?php echo $row['butir penilaian']?></td>
-                        <td><?php echo $row['nilai']?></td>
-                        <td><?php echo $row['predikat']?></td>
-                    </tr>
-                    <?php }?>
-                    <?php }?>
-                    <tr>
-                        <td></td>
-                        <td>Rata-rata</td>
-                        <td>100</td>
-                        <td>Sangat Baik</td>
-                    </tr>             
-                  </table>
-                  <br>
-                  Komentar
-                  <table border="1">
-                    <tr>
-                        <td>Komentar</td>
-                    </tr>
-                    </table>
-                  <br>
-                  <button onclick="location.href='lihatevaluasi.php'"type="button">Kembali</button>             
-          </article>
-       </section>  
-        <footer>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-        </footer>
-          </section>
-  </body>
-</html>
+<html>
+<head>
+  <link rel="shortcut icon" href="kemnakerri.jpg">
+  <title>Hasil Penyelenggara</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 
+<div class="container">
+  <div class="jumbotron" style="background-color:rgb(34, 80, 90); color:white">
+    <h1>Pusdiklat Pegawai Kemnaker RI</h1>      
+    <h2>Hasil penyelenggara</h2>
+    <button onclick="location.href='penyelenggarapeserta.php'" type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Individu</button>
+    <button onclick="location.href='penyelenggaraevaluator.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Evaluator</button>
+    <br>    
+    <button onclick="location.href='lihatevaluasi.php'"type="button" class="btn btn-block btn-lg btn-block" style="color:rgb(34, 80, 90)">Kembali</button>
+  </div>  
+</div>
+
+</body>
+</html>
 <?php
 mysqli_close($koneksi);
 ob_end_flush();

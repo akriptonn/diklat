@@ -84,7 +84,7 @@ if(isset($_POST['diklat'])){
             </nav>
           <article>
               <ul>
-                <form method="post">
+                <form action="admin.php" method="post">
                   <table border="0">
                       <tr>
                           <td><li>Nama Diklat:</td>
@@ -108,7 +108,9 @@ if(isset($_POST['diklat'])){
                             </tr>
                             <td><br></td>
                             <tr>
-                            <td><h4 style="color: rgb(34, 80, 90)">a. Pelayaan Kepada Peserta</h4></td>
+                            <td><h4 style="color: rgb(34, 80, 90)">a. Penyelenggara Diklat</h4>
+                            <h4 style="color: rgb(34, 80, 90)">&nbsp;&nbsp;&nbsp;&nbsp;Pelayanan Kepada Peserta</h4>
+                            </td>
                             </tr>
                     <tr>
                       <td><li>Kelengkapan Informasi Pelatihan:</td>
@@ -121,17 +123,12 @@ if(isset($_POST['diklat'])){
                         </tr>
                         <td><br></td>
                         <tr>
-                            <td><li>Ketersediaan, Kebersihan dan Keberfungsian Fasilitas Olah Raga, Kesehatan, Tempat Ibadah dan Sarana Lainnya:</td>
+                            <td><li>Ketersediaan, Kebersihan, dan Keberfungsian Fasilitas Olah Raga, Kesehatan, Tempat Ibadah, dan Sarana Lainnya:</td>
                             <td><input type="number" name="nilaidiklat3" min="0" max="100" required></td></li>
                           </tr>
                           <td><br></td>
                           <tr>
-                              <td><li>Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan:</td>
-                              <td><input type="number" name="nilaidiklat4" min="0" max="100" required></td></li>
-                            </tr>
-                            <td><br></td>
-                            <tr>
-                              <td><li>Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan:</td>
+                              <td><li>Ketersediaan, Kelengkapan dan Keberfungsian Sarana, dan Bahan Pelatihan:</td>
                               <td><input type="number" name="nilaidiklat4" min="0" max="100" required></td></li>
                             </tr>
                             <td><br></td>
@@ -155,7 +152,7 @@ if(isset($_POST['diklat'])){
                           <td><br></td>     
                       <tr>
                     <td><li>Catatan/Saran:</td>
-                    <td><textarea name="pesanpenyelenggara1" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>
+                    <td><textarea name="pesanpenyelenggara" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>
                   </tr>
                   <td><br></td>         
                   </table>

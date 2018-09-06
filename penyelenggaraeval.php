@@ -2,10 +2,7 @@
 ob_start();
 session_start();
 if(!isset($_SESSION['akun_id'])) header("location: login.php");
-elseif($_SESSION['akun_status']<"1"){
-    header("location: option.php");
-  }
-  
+
 global $koneksi;
 $nameserver = "localhost";
 $username = "root";
@@ -78,16 +75,11 @@ if(isset($_POST['diklat'])){
             <nav>
               <h2 style="color: rgb(34, 80, 90)">Form Evaluasi Oleh Peserta</h2>
               <p><img src="kemnakerri.jpg" width="200px"></p><br>
-              <p style="color: blue">Evaluasi Pengampu/Widyaiswara</p>
-              <p style="color: blue">Evaluasi Penceramah</p>
-              <p style="color: blue">Evaluasi Coach</p>
-              <p style="color: blue">Evaluasi Penguji</p>
-              <p style="color: blue">Evaluasi Mentor</p>
               <p><li style="color:blue">Evaluasi Penyelenggara</p></li>
             </nav>
           <article>
               <ul>
-                <form method="post">
+                <form action="admin.php" method="post">
                   <table border="0">
                       <tr>
                           <td><li>Nama Diklat:</td>
@@ -111,62 +103,122 @@ if(isset($_POST['diklat'])){
                             </tr>
                             <td><br></td>
                             <tr>
-                            <td><h4 style="color: rgb(34, 80, 90)">a. Pelayaan Kepada Peserta</h4></td>
+                            <td><h4 style="color: rgb(34, 80, 90)">a. Pengelola Diklat</h4>
+                            <h4 style="color: rgb(34, 80, 90)">&nbsp;&nbsp;&nbsp;&nbsp;Perencanaan Program Diklat</h4>
+                            </td>
+                            </tr>
+                    <tr>
+                      <td><li>Kesesuaian Perencanaan Dengan Standar Program Diklat:</td>
+                      <td><input type="number" name="nilaidiklateval1" min="0" max="100" required></td></li>
+                    </tr>
+                    <td><br></td>
+                      <tr>
+                          <td><li>Penyampaian Rencana Kepada Instansi Pembina:</td>
+                          <td><input type="number" name="nilaidiklateval2" min="0" max="100" required></td></li>
+                        </tr>
+                        <td><br></td>
+                            <tr>
+                            <td><h4 style="color: rgb(34, 80, 90)">b. Pengorganisasian Program Diklat</h4></td>
+                            </tr>
+                    <tr>
+                      <td><li>Surat Keputusan Kepala Lembaga Diklat Pemerintah Terakreditasi Tentang Panitia Penyelenggara Diklat:</td>
+                      <td><input type="number" name="nilaidiklateval3" min="0" max="100" required></td></li>
+                    </tr>
+                    <td><br></td>
+                      <tr>
+                          <td><li>Uraian Tugas Panitia Penyelenggara Diklat:</td>
+                          <td><input type="number" name="nilaidiklateval4" min="0" max="100" required></td></li>
+                        </tr>
+                        <td><br></td>
+                        <tr>
+                            <td><h4 style="color: rgb(34, 80, 90)">c. Pelaksanaan Program Diklat</h4></td>
+                            </tr>
+                    <tr>
+                      <td><li>Kesesuaian Pelaksanaan Dengan Perencanaan:</td>
+                      <td><input type="number" name="nilaidiklateval5" min="0" max="100" required></td></li>
+                    </tr>
+                    <td><br></td>
+                      <tr>
+                          <td><li>Pengkoordinasian Dengan Pihak-Pihak Terkait:</td>
+                          <td><input type="number" name="nilaidiklateval6" min="0" max="100" required></td></li>
+                        </tr>
+                        <td><br></td>
+                        <tr>
+                          <td><li>Penyampaian Laporan Penyelenggaraan Diklat Kepada Kepala LAN/ Instansi Pembina:</td>
+                          <td><input type="number" name="nilaidiklateval7" min="0" max="100" required></td></li>
+                        </tr>
+                        <td><br></td>
+                        <tr>
+                        <td><h4 style="color: rgb(34, 80, 90)">d. Penyelenggara Diklat</h4>
+                            <h4 style="color: rgb(34, 80, 90)">&nbsp;&nbsp;&nbsp;&nbsp;Pelayanan Kepada Peserta</h4>
+                            </td>
                             </tr>
                     <tr>
                       <td><li>Kelengkapan Informasi Pelatihan:</td>
-                      <td><input type="number" name="nilaidiklat1" min="0" max="100" required></td></li>
+                      <td><input type="number" name="nilaidiklateval8" min="0" max="100" required></td></li>
                     </tr>
                     <td><br></td>
                       <tr>
                           <td><li>Ketersediaan dan Kebersihan Asrama, Kelas, Ruang Makan, Toilet, dan Prasarana Lainnya:</td>
-                          <td><input type="number" name="nilaidiklat2" min="0" max="100" required></td></li>
+                          <td><input type="number" name="nilaidiklateval9" min="0" max="100" required></td></li>
                         </tr>
                         <td><br></td>
                         <tr>
                             <td><li>Ketersediaan, Kebersihan dan Keberfungsian Fasilitas Olah Raga, Kesehatan, Tempat Ibadah dan Sarana Lainnya:</td>
-                            <td><input type="number" name="nilaidiklat3" min="0" max="100" required></td></li>
+                            <td><input type="number" name="nilaidiklateval10" min="0" max="100" required></td></li>
                           </tr>
                           <td><br></td>
                           <tr>
-                              <td><li>Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan:</td>
-                              <td><input type="number" name="nilaidiklat4" min="0" max="100" required></td></li>
+                              <td><li>Ketersediaan, Kelengkapan dan Keberfungsian Sarana, dan Bahan Pelatihan:</td>
+                              <td><input type="number" name="nilaidiklateval11" min="0" max="100" required></td></li>
                             </tr>
                             <td><br></td>
                             <tr>
-                              <td><li>Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan:</td>
-                              <td><input type="number" name="nilaidiklat4" min="0" max="100" required></td></li>
-                            </tr>
-                            <td><br></td>
-                            <tr>
-                            <td><h4 style="color: rgb(34, 80, 90)">b. Pelayanan Kepada Pengajar, Penceramah, dan Tenaga Kediklatan Lainnya</h4></td>
+                            <td><h4 style="color: rgb(34, 80, 90)">e. Pelayanan Kepada Pengajar, Penceramah, dan Tenaga Kediklatan Lainnya</h4></td>
                             </tr>
                     <tr>
                       <td><li>Kelengkapan Informasi Diklat:</td>
-                      <td><input type="number" name="nilaidiklat5" min="0" max="100" required></td></li>
+                      <td><input type="number" name="nilaidiklateval12" min="0" max="100" required></td></li>
                     </tr>
                     <td><br></td>
                       <tr>
                           <td><li>Ketepatan Waktu Menghubungi Pengajar, Penceramah, dan Tenaga Kediklatan Lainnya:</td>
-                          <td><input type="number" name="nilaidiklat6" min="0" max="100" required></td></li>
+                          <td><input type="number" name="nilaidiklateval13" min="0" max="100" required></td></li>
                         </tr>
                         <td><br></td>
                         <tr>
                             <td><li>Ketersediaan, Kelengkapan, dan Keberfungsian Sarana Pengajaran Dalam Kelas:</td>
-                            <td><input type="number" name="nilaidiklat7" min="0" max="100" required></td></li>
+                            <td><input type="number" name="nilaidiklateval14" min="0" max="100" required></td></li>
+                          </tr>
+                          <td><br></td>
+                          <tr>
+                            <td><h4 style="color: rgb(34, 80, 90)">f. Pengadministrasian Diklat</h4></td>
+                            </tr>
+                    <tr>
+                      <td><li>Kelengkapan Surat Menyurat:</td>
+                      <td><input type="number" name="nilaidiklateval15" min="0" max="100" required></td></li>
+                    </tr>
+                    <td><br></td>
+                      <tr>
+                          <td><li>Ketersediaan Instrumen-Instrumen Penilaian:</td>
+                          <td><input type="number" name="nilaidiklateval16" min="0" max="100" required></td></li>
+                        </tr>
+                        <td><br></td>
+                        <tr>
+                            <td><li>File Keseluruhan Dokumen Setelah Penyelenggaraan:</td>
+                            <td><input type="number" name="nilaidiklateval17" min="0" max="100" required></td></li>
                           </tr>
                           <td><br></td>     
                       <tr>
                     <td><li>Catatan/Saran:</td>
-                    <td><textarea name="pesanpenyelenggara1" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>
+                    <td><textarea name="pesanpenyelenggaraeval" rows="10" cols="30">Tulis saran anda disini(tidak harus diisi)</textarea></td></li>
                   </tr>
                   <td><br></td>         
                   </table>
               </ul>
                   <br><input type="submit" name="diklat">
                   <input type="reset">  
-                  <button onclick="location.href='admin.php'"type="button">Lanjut</button>
-                  <button onclick="location.href='mentor.php'"type="button">Kembali</button>           
+                  <button onclick="location.href='admin.php'"type="button">Kembali</button>           
           </article>
        </section>
       </form>    

@@ -88,14 +88,15 @@ $query = mysqli_query($koneksi, "SELECT id, butir_penilaian,AVG(Nilai) as Nilai 
                         <td><?php echo $row['id']?></td>
                         <td><?php echo $row['butir_penilaian']?></td>
                         <td><?php echo $row['Nilai']?></td>
-                        <td><?php echo $row['predikat']?></td>
+                        <td><?php echo "sangat baik"?></td>
                     </tr>
                     <?php }?>
                     <?php }?>
                     <tr>
                         <td></td>
                         <td>Rata-rata</td>
-                        <td>100</td>
+                        <td><?php $query = mysqli_query($koneksi, "SELECT averages from reratanilai;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){echo $row['averages'];}}
+                             ?></td>
                         <td>Sangat Baik</td>
                     </tr>             
                   </table>
@@ -103,7 +104,7 @@ $query = mysqli_query($koneksi, "SELECT id, butir_penilaian,AVG(Nilai) as Nilai 
                   Komentar
                   <table border="1">
                     <tr>
-                        <td>Komentar</td>
+                        <td><?php $query = mysqli_query($koneksi, "SELECT Saran from saranpengampu;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){if(($row['Saran'] != "-")&&($row['Saran'] != " ")){echo "- ";echo $row['Saran']; echo "\n";}} } ?></td>
                     </tr>
                     </table>
                   <br>

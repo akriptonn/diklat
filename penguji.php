@@ -68,7 +68,7 @@ if(!$koneksi) {
         </nav>
       <article>
           <ul>
-            <form action="file:///C:/xampp/htdocs/diklat/mentor.php" method="post">
+            <form action="mentor.php" method="post">
               <table border="0">
                 <tr>
                   <td><li>Nama Penguji:</td>

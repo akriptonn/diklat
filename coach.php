@@ -68,7 +68,7 @@ if(!$koneksi) {
             </nav>
           <article>
               <ul>
-                <form method="post">
+                <form action="penguji.php" method="post">
                   <table border="0">
                     <tr>
                       <td><li>Nama Coach:</td>

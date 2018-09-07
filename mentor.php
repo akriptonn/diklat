@@ -68,7 +68,7 @@ if(!$koneksi) {
             </nav>
           <article>
               <ul>
-                <form method="post">
+                <form action="penyelenggara.php" method="post">
                   <table border="0">
                     <tr>
                       <td><li>Nama Mentor:</td>

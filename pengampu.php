@@ -76,21 +76,24 @@ if(!$koneksi) {
               <tr>
                 <td><li>Program:</td>
                 <td><select name="program">
-                    <option value="Pelatihan Dasar Calon PNS Golongan II">Pelatihan Dasar Calon PNS Golongan II</option>
+                <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Program from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="Dr.X"><?php echo $row['Program'];}} ?></option>
                     </select></td></li>
               </tr>
               <td><br></td>
               <tr>
                 <td><li>Nama Pengajar:</td>
                 <td><select name="namapengajar">
-                    <option value="Dr.X">Dr.X</option>
+                    <?php $query = mysqli_query($koneksi, "SELECT DISTINCT NamaPengajar from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="Dr.X"><?php echo $row['NamaPengajar'];}} ?></option>
                     </select></td></li>
               </tr>
               <td><br></td>
               <tr>
                   <td><li>Mata Pelatihan:</td>
                   <td><select name="matapelatihan">
-                      <option value="Matematika">Matematika</option>
+                  <?php $query = mysqli_query($koneksi, "SELECT DISTINCT MataDiklat from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="Dr.X"><?php echo $row['MataDiklat'];}} ?></option>
                       </select></td></li>
                 </tr>
                 <td><br></td>

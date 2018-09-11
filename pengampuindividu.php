@@ -104,7 +104,7 @@ $query = mysqli_query($koneksi, "SELECT id, butir_penilaian,AVG(Nilai) as Nilai 
                   Komentar
                   <table border="1">
                     <tr>
-                        <td><?php $query = mysqli_query($koneksi, "SELECT Saran from saranpengampu;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){if(($row['Saran'] != "-")&&($row['Saran'] != " ")){echo "- ";echo $row['Saran']; echo "\n";}} } ?></td>
+                        <td><?php $query = mysqli_query($koneksi, "SELECT Saran from saranpengampu;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){if(($row['Saran'] != "-")&&($row['Saran'] != " ")&&($row['Saran'] != "")){echo "- ";echo $row['Saran']; echo "<br>";}} } ?></td>
                     </tr>
                     </table>
                   <br>

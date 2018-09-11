@@ -71,13 +71,13 @@ if(!$koneksi) {
       </nav>
     <article>
         <ul>
-          <form action="penceramah.php" method="post">
+          <form action="pengampu.php" method="post">
             <table border="0">
               <tr>
                 <td><li>Program:</td>
                 <td><select name="program">
                 <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Program from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
-                    <option value="Dr.X"><?php echo $row['Program'];}} ?></option>
+                    <option value="<?php echo $row['Program'];?>"><?php echo $row['Program'];}} ?></option>
                     </select></td></li>
               </tr>
               <td><br></td>
@@ -85,7 +85,7 @@ if(!$koneksi) {
                 <td><li>Nama Pengajar:</td>
                 <td><select name="namapengajar">
                     <?php $query = mysqli_query($koneksi, "SELECT DISTINCT NamaPengajar from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
-                    <option value="Dr.X"><?php echo $row['NamaPengajar'];}} ?></option>
+                    <option value="<?php echo $row['NamaPengajar']; ?>"><?php echo $row['NamaPengajar'];}} ?></option>
                     </select></td></li>
               </tr>
               <td><br></td>
@@ -93,7 +93,7 @@ if(!$koneksi) {
                   <td><li>Mata Pelatihan:</td>
                   <td><select name="matapelatihan">
                   <?php $query = mysqli_query($koneksi, "SELECT DISTINCT MataDiklat from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
-                    <option value="Dr.X"><?php echo $row['MataDiklat'];}} ?></option>
+                    <option value="<?php echo $row['MataDiklat']; ?>"><?php echo $row['MataDiklat'];}} ?></option>
                       </select></td></li>
                 </tr>
                 <td><br></td>

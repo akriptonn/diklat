@@ -27,7 +27,7 @@ if (isset($_POST['submit'])){
   $inserttahun = $_POST['tahun'];
   $insertnohp = $_POST['nohp'];
   $insertemail = $_POST['email'];
-  mysqli_query($koneksi,"INSERT INTO alumni VALUES('','$insertnip','$insertnama','$insertttl','$insertpangkat,'$insertjeniskelamin','$insertjabatan','$insertunitkerja','$insertpusatprovinsi','$insertdiklatangkatan','$inserttahun','$insertnohp','$insertemail')");
+  mysqli_query($koneksi,"INSERT INTO alumni VALUES('','$insertnip','$insertnama','$insertttl','$insertpangkat','$insertjeniskelamin','$insertjabatan','$insertunitkerja','$insertpusatprovinsi','$insertdiklatangkatan','$inserttahun','$insertnohp','$insertemail')");
   header("location: admin.php");
 }
 
@@ -85,69 +85,70 @@ if (isset($_POST['submit'])){
             <table border="0">
               <tr>
                 <td><li>NIP:</td>
-                <td><input type="text" name="nip" value="131000911" required></td></li>
+                <td><input type="text" name="nip" value="131000911"></td></li>
               </tr>
               <td><br></td>
               <tr>
                 <td><li>Nama:</td>
-                <td><input type="text" name="nama" value="Zulkarnain, Drs" required></td></li>
+                <td><input type="text" name="nama" value="Zulkarnain, Drs"></td></li>
               </tr>
               <td><br></td>
               <tr>
                   <td><li>Tanggal lahir:</td>
-                  <td><input type="date" name="tanggallahir" required></td></li>
+                  <td><input type="date" name="tanggallahir"></td></li>
                 </tr>
                 <td><br></td>
               <tr>
                   <td><li>Pangkat:</td>
                   <td>
-                      <select name="pangkat" required>
-                          <option value="1a">I/a</option>
-                          <option value="1b">I/b</option>
-                          <option value="1c">I/c</option>
-                          <option value="1d">I/d</option>
-                          <option value="2a">II/a</option>
-                          <option value="2b">II/b</option>
-                          <option value="2c">II/c</option>
-                          <option value="2d">II/d</option>
-                          <option value="3a">III/a</option>
-                          <option value="3b">III/b</option>
-                          <option value="3c">III/c</option>
-                          <option value="3d">III/d</option>
-                          <option value="4a">IV/a</option>
-                          <option value="4b">IV/b</option>
-                          <option value="4c">IV/c</option>
-                          <option value="4d">IV/d</option>
-                          <option value="4e">IV/e</option>
+                      <select name="pangkat">
+                          <option></option>
+                          <option>I/a</option>
+                          <option>I/b</option>
+                          <option>I/c</option>
+                          <option>I/d</option>
+                          <option>II/a</option>
+                          <option>II/b</option>
+                          <option>II/c</option>
+                          <option>II/d</option>
+                          <option>III/a</option>
+                          <option>III/b</option>
+                          <option>III/c</option>
+                          <option>III/d</option>
+                          <option>IV/a</option>
+                          <option>IV/b</option>
+                          <option>IV/c</option>
+                          <option>IV/d</option>
+                          <option>IV/e</option>
                           </select>
                   </td></li>
                 </tr>
                 <tr>
                     <td><li>Jenis Kelamin:</td>
                     <td>
-                        <br><input type="radio" name="jeniskelamin" value="male" checked> Laki-laki
-                        <br><input type="radio" name="jeniskelamin" value="female"> Perempuan
+                        <br><input type="radio" name="jeniskelamin" value="Laki-L=laki" checked>Laki-laki
+                        <br><input type="radio" name="jeniskelamin" value="Perempuan">Perempuan
                     </td></li>
                   </tr>
                   <td><br></td>
                 <tr>
                   <td><li>Jabatan:</td>
-                  <td><input type="text" name="jabatan" value="Ka.Bid. Pengemb.Pegawai " required></td></li>
+                  <td><input type="text" name="jabatan" value="Ka.Bid. Pengemb.Pegawai "></td></li>
                 </tr>
                 <td><br></td>  
                 <tr>
                     <td><li>Unit Kerja:</td>
-                    <td><input type="text" name="unitkerja" value="BKD Kab. Batanghari" required></td></li>
+                    <td><input type="text" name="unitkerja" value="BKD Kab. Batanghari"></td></li>
                   </tr>
                   <td><br></td> 
                 <tr>
                     <td><li>Pusat/Provinsi:</td>
-                    <td><input type="text" name="pusatprovinsi" value="Jambi" required></td></li>
+                    <td><input type="text" name="pusatprovinsi" value="Jambi"></td></li>
                   </tr>
                   <td><br></td>
                 <tr>
                     <td><li>Diklat/Angkatan:</td>
-                    <td><input type="text" name="diklatangkatan" value="Lokakarya Prog.Diklat Nakertrs I" required></td></li>
+                    <td><input type="text" name="diklatangkatan" value="Lokakarya Prog.Diklat Nakertrs I"></td></li>
                   </tr>
                   <td><br></td>    
                 <tr>
@@ -162,7 +163,7 @@ if (isset($_POST['submit'])){
                   <td><br></td> 
                 <tr>
                     <td><li>Email:</td>
-                    <td><input type="email" name="email" value="user@domain.com" required></td></li>
+                    <td><input type="email" name="email" value="user@domain.com"></td></li>
                   </tr>
                   <td><br></td>      
             </table>

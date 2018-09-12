@@ -14,16 +14,21 @@ if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
 
-if(isset($_POST['opsi1'])){
-  if($_SESSION["akun_status"]=="1") {
-    header("location: admin.php");
-  }
-  elseif($_SESSION["akun_status"]=="2") {
-    header("location: evaluator.php");
-  }
-  else {
-  header("location: option.php");
-  }
+if (isset($_POST['submit'])){
+  $insertnip = $_POST['nip'];
+  $insertnama = $_POST['nama'];
+  $insertttl = $_POST['tanggallahir'];
+  $insertpangkat = $_POST['pangkat'];
+  $insertjeniskelamin = $_POST['jeniskelamin'];
+  $insertjabatan = $_POST['jabatan'];
+  $insertunitkerja = $_POST['unitkerja'];
+  $insertpusatprovinsi = $_POST['pusatprovinsi'];
+  $insertdiklatangkatan = $_POST['diklatangkatan'];
+  $inserttahun = $_POST['tahun'];
+  $insertnohp = $_POST['nohp'];
+  $insertemail = $_POST['email'];
+  mysqli_query($koneksi,"INSERT INTO alumni VALUES('','$insertnip','$insertnama','$insertttl','$insertpangkat,'$insertjeniskelamin','$insertjabatan','$insertunitkerja','$insertpusatprovinsi','$insertdiklatangkatan','$inserttahun','$insertnohp','$insertemail')");
+  header("location: admin.php");
 }
 
 ?>
@@ -76,7 +81,7 @@ if(isset($_POST['opsi1'])){
 
     <article>
         <ul>
-          <form method="post">
+          <form action="alumni.php" method="post">
             <table border="0">
               <tr>
                 <td><li>NIP:</td>
@@ -162,7 +167,7 @@ if(isset($_POST['opsi1'])){
                   <td><br></td>      
             </table>
         </ul>
-            <br><input type="submit" value="Submit">
+            <br><input type="submit" id="submit" name="submit" value="Submit">
             <input type="reset">  
             <button onclick="location.href='admin.php'"type="button">Kembali</button>              
     </article>

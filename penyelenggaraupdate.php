@@ -68,7 +68,7 @@ if(!$koneksi) {
       </nav>
     <article>
         <ul>
-          <form action="">
+          <form action="penyelenggaraupdate.php" method="post">
             <table border="0">
               <tr>
                 <td><li>Nama Diklat:</td>
@@ -78,13 +78,19 @@ if(!$koneksi) {
               <td><br></td>  
               <tr>
                 <td><li>Tempat:</td>
-                <td><input type="text" name="program">
+                <td><input type="text" name="tempat">
                     </td></li>
               </tr>
               <td><br></td>    
+              <tr>
+                <td><li>Durasi:</td>
+                <td><input type="text" name="durasi">
+                    </td></li>
+              </tr>
+              <td><br></td> 
             </table>
         </ul>
-            <br><input type="submit" value="Submit">
+        <input type="submit" name="submit" id="submit" value="Submit">
             <input type="reset">   
             <button onclick="location.href='updateform.php'"type="button">Kembali</button>                   
     </article>
@@ -99,6 +105,13 @@ if(!$koneksi) {
 </html>
 
 <?php
+if (isset($_POST['submit'])){
+  $sql = "INSERT INTO penyelenggaradiklat(namaDiklat,Tempat,Durasi) values(";
+  $sql = $sql . "'" . $_POST['program'] . "'";
+  $sql = $sql . ",'" . $_POST['tempat'] . "'"; 
+  $sql = $sql . ",'" . $_POST['durasi'] . "');";
+  $result = $koneksi->query($sql);
+}
 mysqli_close($koneksi);
 ob_end_flush();
 ?>

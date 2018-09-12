@@ -14,19 +14,97 @@ if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
 
-if(isset($_POST['diklat'])){
+if (isset($_POST['submit'])){
   $insertdiklat = $_POST['namadiklat'];
   $inserttempat = $_POST['tempatdiklat'];
   $insertdurasi = $_POST['durasidiklat'];
-  $insertdiklat1 = $_POST['nilaidiklat1'];
-  $insertdiklat2 = $_POST['nilaidiklat2'];
-  $insertdiklat3 = $_POST['nilaidiklat3'];
-  $insertdiklat4 = $_POST['nilaidiklat4'];
-  mysqli_query($koneksi, "INSERT INTO penyelenggara VALUES('','$insertdiklat','$inserttempat','$insertdurasi','Kelengkapan Informasi Pelatihan','$insertdiklat1','','1')");
-  mysqli_query($koneksi, "INSERT INTO penyelenggara VALUES('','$insertdiklat','$inserttempat','$insertdurasi','Ketersediaan dan Kebersihan Asrama, Kelas, Ruang Makan, Toilet, dan Prasarana Lainnya','$insertdiklat2','','2')");
-  mysqli_query($koneksi, "INSERT INTO penyelenggara VALUES('','$insertdiklat','$inserttempat','$insertdurasi','Ketersediaan, Kebersihan dan Keberfungsian Fasilitas Olah Raga, Kesehatan, Tempat Ibadah dan Sarana Lainnya','$insertdiklat3','','3')");
-  mysqli_query($koneksi, "INSERT INTO penyelenggara VALUES('','$insertdiklat','$inserttempat','$insertdurasi','Ketersediaan, kelengkapan dan keberfungsian sarana dan bahan Pelatihan','$insertdiklat4','','4')");
-  header("location: option.php");
+  $insertdiklat1 = $_POST['nilaidiklat1'] + $_POST['nilaidiklat2'] + $_POST['nilaidiklat3'] + $_POST['nilaidiklat4'] ;
+  $insertdiklat2 = $_POST['nilaidiklat5'] + $_POST['nilaidiklat6'] + $_POST['nilaidiklat7'];
+  $insertdiklat1 = $insertdiklat1 * 1.00 / 4;
+  $insertdiklat2 = $insertdiklat2 * 1.00 / 3;
+
+  $rata_rata = $insertdiklat1 + $insertdiklat2;
+  $rata_rata = $rata_rata / 2;
+  // echo $rata_rata;
+  $sql = "SELECT `AUTO_INCREMENT`  FROM  INFORMATION_SCHEMA.TABLES   WHERE TABLE_NAME   = 'reratanilaipenyelenggara';";
+  $result = $koneksi->query($sql);
+  $cods = 1;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $cods = $row['AUTO_INCREMENT'];  
+    }
+  }
+
+  $sql = "INSERT INTO reratanilaipenyelenggara(averages, NamaDiklat, Tempat, Durasi) values(";
+  $sql = $sql. $rata_rata . ",";
+  $sql = $sql. "'" . $insertdiklat . "'" . ",";
+  $sql = $sql. "'" . $inserttempat . "'" . ",";
+  $sql = $sql. "'" . $insertdurasi . "'" . ");";
+  
+  $result = $koneksi->query($sql);
+  if ($result != '1'){
+    $sql = "ALTER TABLE reratanilaipenyelenggara AUTO_INCREMENT= ";
+    $sql = $sql . $cods . ";";
+    $result = $koneksi->query($sql);
+
+    $sql = "SELECT AVG(nilai) as averages from reratanilaipenyelenggara,penyelenggaranilai";
+    $sql = $sql . " " . "where transaksi = reratanilaipenyelenggara.prime and NamaDiklat = " . "'". $insertdiklat ."' AND Tempat = '" . $inserttempat . "' AND Durasi = '" .$insertdurasi ."';";
+    // echo $sql;
+    $result = $koneksi->query($sql);
+    $rata_bfr = 0;
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()){
+        $rata_bfr = $row['averages'];
+      }
+    }
+
+    $sql = "SELECT COUNT(nilai) as averages from reratanilaipenyelenggara,penyelenggaranilai";
+    $sql = $sql . " " . "where transaksi = reratanilaipenyelenggara.prime and NamaDiklat = " . "'". $insertdiklat ."' AND Tempat = '" . $inserttempat . "' AND Durasi = '" .$insertdurasi ."';";
+    // echo $sql;
+    $result = $koneksi->query($sql);
+    $ngitung = 0;
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()){
+        $ngitung = $row['averages'];
+      }
+    }
+
+    $rata_rata = (($rata_rata*2) + ($rata_bfr * $ngitung) )/ (($ngitung + 4)*1.0);
+    $sql = "UPDATE reratanilaipenyelenggara SET averages = " .$rata_rata ." ";
+    $sql = $sql . " " . "where NamaDiklat = " . "'". $insertdiklat ."' AND Tempat = '" . $inserttempat . "' AND Durasi = '" .$insertdurasi ."';";
+    $result = $koneksi->query($sql);
+
+    $sql = "SELECT prime as AUTO_INCREMENT  FROM  reratanilaipenyelenggara";
+    $sql = $sql . " " . "where NamaDiklat = " . "'". $insertdiklat ."' AND Tempat = '" . $inserttempat . "' AND Durasi = '" .$insertdurasi ."';";
+    $result = $koneksi->query($sql);
+   
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $cods = $row['AUTO_INCREMENT'];  
+    }
+    }
+  }
+  $sql = "INSERT INTO saranpenyelenggara(Saran,transaksi) values(";
+  $sql = $sql. "'" . $_POST['pesanpenyelenggara'] . "'" . ",";
+  $sql = $sql. $cods . ");";
+  $result = $koneksi->query($sql);
+
+
+  $sql = "INSERT INTO penyelenggaranilai(id_butirnilai,nilai,transaksi) values(1,";
+  $sql = $sql . $insertdiklat1 . "," ;
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  $sql = $sql. $cods . ");";
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO penyelenggaranilai(id_butirnilai,nilai,transaksi) values(2,";
+  $sql = $sql . $insertdiklat2 . "," ;
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  $sql = $sql. $cods . ");";
+  $result = $koneksi->query($sql);
+
+  mysqli_close($koneksi);
+  ob_end_flush();
+  header("location: admin.php");
 }
 
 ?>
@@ -84,27 +162,30 @@ if(isset($_POST['diklat'])){
             </nav>
           <article>
               <ul>
-                <form action="admin.php" method="post">
+                <form action="penyelenggara.php" method="post">
                   <table border="0">
                       <tr>
                           <td><li>Nama Diklat:</td>
                           <td><select name="namadiklat">
-                              <option value="jakarta">Jakarta</option>
+                             <?php $query = mysqli_query($koneksi, "SELECT DISTINCT namaDiklat from penyelenggaradiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                              <option value="<?php echo $row['namaDiklat'];?>"><?php echo $row['namaDiklat'];}} ?></option>
                               </select></td></li>
                         </tr>
                         <td><br></td>
                         <tr>
                             <td><li>Tempat:</td>
                             <td><select name="tempatdiklat">
-                                <option value="kalibata">Kalibata</option>
-                                </select></td></li>
+                            <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Tempat from penyelenggaradiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                            <option value="<?php echo $row['Tempat'];?>"><?php echo $row['Tempat'];}} ?></option>
+                            </select></td></li>
                           </tr>
                           <td><br></td>
                           <tr>
                               <td><li>Durasi:</td>
                               <td><select name="durasidiklat">
-                                  <option value="1 minggu">1 Minggu</option>
-                                  </select></td></li>
+                              <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Durasi from penyelenggaradiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                              <option value="<?php echo $row['Durasi'];?>"><?php echo $row['Durasi'];}} ?></option>
+                              </select></td></li>
                             </tr>
                             <td><br></td>
                             <tr>
@@ -157,7 +238,7 @@ if(isset($_POST['diklat'])){
                   <td><br></td>         
                   </table>
               </ul>
-                  <br><input type="submit" name="diklat">
+              <br><input type="submit" id="submit" name="submit" value="Submit">
                   <input type="reset">  
                   <button onclick="location.href='admin.php'"type="button">Lanjut</button>
                   <button onclick="location.href='mentor.php'"type="button">Kembali</button>           

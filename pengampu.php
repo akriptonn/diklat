@@ -314,6 +314,8 @@ if (isset($_POST['submit'])){
   // // $sql = $sql . "NULL"
 
   // $sql = $sql . "NULL"
+  mysqli_close($koneksi);
+  ob_end_flush();
   header("location: penceramah.php");
 
 }

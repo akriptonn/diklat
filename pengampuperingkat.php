@@ -20,7 +20,7 @@ if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
 $rans = 0;
-$query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM reratanilai where program='Pelatihan Dasar Calon PNS Golongan II' ORDER BY averages DESC");
+$query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,average FROM ratanilaipengampu where program='Pelatihan Dasar Calon PNS Golongan II' ORDER BY average DESC");
 
 
 ?>
@@ -33,6 +33,38 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM rerata
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
   <style>
       * {box-sizing:border-box;}
       body{font-family: Arial,Arial, Helvetica, sans-serif;}
@@ -72,7 +104,7 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM rerata
           <article>
               <ul>
                 <form action="">
-                  <table border="1">
+                  <table id="pengampuperingkat" border="1">
                     <tr>
                         <td>Peringkat</td>
                         <td>Mata Diklat</td>
@@ -86,13 +118,14 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM rerata
                         <td><?php $rans = $rans + 1; echo $rans?></td>
                         <td><?php echo $row['matpel']?></td>
                         <td><?php echo $row['NamaPengajar']?></td>
-                        <td><?php echo $row['averages']?></td>
-                        <td><?php $simpan = $row['averages']; if ($simpan >= 85){ echo "A";} else if ($simpan >= 60){echo "B";} else {echo "C";} ?></td>
+                        <td><?php echo number_format($row['average'],2)?></td>
+                        <td><?php $simpan = $row['average']; if ($simpan >= 82.51){ echo "Sangat Baik";} else if ($simpan >= 72.5){echo "Baik";} else if ($simpan >= 62.51){echo "Cukup";} else {echo "Kurang";} ?></td>
                     </tr>
                     <?php }}?>    
                   </table>
                   <br>
-                  <button onclick="location.href='pengampuadmin.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='pengampuadmin.php'"type="button">Kembali</button>     
+                  <button onclick="exportTableToExcel('pengampuperingkat', 'pengampu peringkat')">Download</button>        
           </article>
        </section>
       </form>    

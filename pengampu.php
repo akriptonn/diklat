@@ -193,18 +193,22 @@ if (isset($_POST['submit'])){
     }
   }
 
-  $sql = "INSERT INTO reratanilai(averages, NamaPengajar, program, matpel, angkatantahun) values(";
+  $sql = "INSERT INTO reratanilai(averages, NamaPengajar, program, matpel, tanggalwaktu, angkatantahun) values(";
   $sql = $sql. $rata_rata . ",";
   $sql = $sql. "'" . $_POST['namapengajar'] . "'" . ",";
   $sql = $sql. "'" . $_POST['program'] . "'" . ",";
   $sql = $sql. "'" . $_POST['matapelatihan'] . "'" . ",";
-  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. "'" . $_POST['angkatan'] . "'" . ");";
   
   $result = $koneksi->query($sql);
   if ($result != '1'){
-    $sql = "SELECT averages from reratanilai";
-    $sql = $sql . " " . "where NamaPengajar = " . "'". $_POST['namapengajar'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['matapelatihan'] ."' AND angkatantahun = '" .$_POST['angkatan']."';";
+    $sql = "ALTER TABLE reratanilai AUTO_INCREMENT= ";
+    $sql = $sql . $cods . ";";
+    $result = $koneksi->query($sql);
+
+    $sql = "SELECT AVG(nilai) as averages from reratanilai,pengampunilai";
+    $sql = $sql . " " . "where transaksi = reratanilai.prime and NamaPengajar = " . "'". $_POST['namapengajar'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['matapelatihan'] ."' AND angkatantahun = '" .$_POST['angkatan']."' AND tanggalwaktu = '" .$_POST['tanggalpengampu'] ."';";
     // echo $sql;
     $result = $koneksi->query($sql);
     $rata_bfr = 0;
@@ -213,10 +217,32 @@ if (isset($_POST['submit'])){
         $rata_bfr = $row['averages'];
       }
     }
-    $rata_rata = ($rata_rata + $rata_bfr )/2.0;
-    $sql = "UPDATE reratanilai SET averages = " .$rata_rata ." ";
-    $sql = $sql . " " . "where NamaPengajar = " . "'". $_POST['namapengajar'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['matapelatihan'] ."' AND angkatantahun = '" .$_POST['angkatan']."';";
+
+    $sql = "SELECT COUNT(nilai) as averages from reratanilai,pengampunilai";
+    $sql = $sql . " " . "where transaksi = reratanilai.prime and NamaPengajar = " . "'". $_POST['namapengajar'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['matapelatihan'] ."' AND angkatantahun = '" .$_POST['angkatan']."' AND tanggalwaktu = '" .$_POST['tanggalpengampu'] ."';";
+    // echo $sql;
     $result = $koneksi->query($sql);
+    $ngitung = 0;
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()){
+        $ngitung = $row['averages'];
+      }
+    }
+
+    $rata_rata = (($rata_rata*10) + ($rata_bfr * $ngitung) )/ (($ngitung + 10)*1.0);
+    $sql = "UPDATE reratanilai SET averages = " .$rata_rata ." ";
+    $sql = $sql . " " . "where NamaPengajar = " . "'". $_POST['namapengajar'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['matapelatihan'] ."' AND angkatantahun = '" .$_POST['angkatan']. "' AND tanggalwaktu = '" .$_POST['tanggalpengampu'] ."';";
+    $result = $koneksi->query($sql);
+
+    $sql = "SELECT prime as AUTO_INCREMENT  FROM  reratanilai";
+    $sql = $sql . " " . "where NamaPengajar = " . "'". $_POST['namapengajar'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['matapelatihan'] ."' AND angkatantahun = '" .$_POST['angkatan']. "' AND tanggalwaktu = '" .$_POST['tanggalpengampu'] ."';";
+    $result = $koneksi->query($sql);
+   
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $cods = $row['AUTO_INCREMENT'];  
+    }
+    }
   }
   // echo $sql;
   $sql = "INSERT INTO saranpengampu(Saran,tanggalwaktu,transaksi) values(";
@@ -226,69 +252,69 @@ if (isset($_POST['submit'])){
   $result = $koneksi->query($sql);
 
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(1,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(1,";
   $sql = $sql . $_POST['penguasaanpengampu'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(2,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(2,";
   $sql = $sql . $_POST['caramenyajikanpengampu'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(3,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(3,";
   $sql = $sql . $_POST['ketepatanwaktupengampu'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(4,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(4,";
   $sql = $sql . $_POST['penggunaanmetodepengampu'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(5,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(5,";
   $sql = $sql . $_POST['sikappengampu'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(6,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(6,";
   $sql = $sql . $_POST['kerapihanberpakaian'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(7,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(7,";
   $sql = $sql . $_POST['caramenjawabpengampu'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(8,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(8,";
   $sql = $sql . $_POST['bahasa'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(9,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(9,";
   $sql = $sql . $_POST['motivasipengampu'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,tanggalwaktu,transaksi) values(10,";
+  $sql = "INSERT INTO pengampunilai(id_butirnilai,nilai,transaksi) values(10,";
   $sql = $sql . $_POST['kerjasama'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
   // // $sql = $sql . "NULL"
 
   // $sql = $sql . "NULL"
- 
+  header("location: penceramah.php");
 
 }
 mysqli_close($koneksi);

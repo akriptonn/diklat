@@ -68,7 +68,7 @@ if(!$koneksi) {
       </nav>
     <article>
         <ul>
-          <form action="">
+        <form action="penceramahupdate.php" method="post">
             <table border="0">
               <tr>
                 <td><li>Program:</td>
@@ -78,19 +78,19 @@ if(!$koneksi) {
               <td><br></td>
               <tr>
                 <td><li>Nama Penceramah:</td>
-                <td><input type="text" name="program">
+                <td><input type="text" name="lecturer">
                     </td></li>
               </tr>
               <td><br></td>
               <tr>
                 <td><li>Jenis Ceramah:</td>
-                <td><input type="text" name="program">
+                <td><input type="text" name="course">
                     </td></li>
               </tr>
               <td><br></td>         
             </table>
         </ul>
-            <br><input type="submit" value="Submit">
+            <br><input type="submit" name="submit" id="submit" value="Submit">
             <input type="reset">  
             <button onclick="location.href='updateform.php'"type="button">Kembali</button>                    
     </article>
@@ -105,6 +105,13 @@ if(!$koneksi) {
 </html>
 
 <?php
+if (isset($_POST['submit'])){
+  $sql = "INSERT INTO penceramahdiklat(Program,JenisCeramah,NamaPenceramah) values(";
+  $sql = $sql . "'" . $_POST['program'] . "'";
+  $sql = $sql . ",'" . $_POST['course'] . "'"; 
+  $sql = $sql . ",'" . $_POST['lecturer'] . "');";
+  $result = $koneksi->query($sql);
+}
 mysqli_close($koneksi);
 ob_end_flush();
 ?>

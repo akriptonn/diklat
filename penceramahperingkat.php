@@ -20,7 +20,7 @@ if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
 $rans = 0;
-$query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM reratanilai where program='Pelatihan Dasar Calon PNS Golongan II' ORDER BY averages DESC");
+$query = mysqli_query($koneksi, "SELECT matpel,NamaPenceramah as NamaPengajar,average FROM ratanilaipenceramah where program='aa' ORDER BY average DESC");
 
 
 ?>
@@ -86,8 +86,8 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPengajar,averages FROM rerata
                         <td><?php $rans = $rans + 1; echo $rans?></td>
                         <td><?php echo $row['matpel']?></td>
                         <td><?php echo $row['NamaPengajar']?></td>
-                        <td><?php echo $row['averages']?></td>
-                        <td><?php $simpan = $row['averages']; if ($simpan >= 85){ echo "A";} else if ($simpan >= 60){echo "B";} else {echo "C";} ?></td>
+                        <td><?php echo $row['average']?></td>
+                        <td><?php $simpan = $row['average']; if ($simpan >= 82.51){ echo "Sangat Baik";} else if ($simpan >= 72.5){echo "Baik";} else if ($simpan >= 62.51){echo "Cukup";} else {echo "Kurang";} ?></td>
                     </tr>
                     <?php }}?>    
                   </table>

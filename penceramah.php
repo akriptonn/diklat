@@ -13,6 +13,7 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +74,7 @@ if(!$koneksi) {
                 <tr>
                   <td><li>Program:</td>
                   <td><select name="program">
-                  <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Program from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                  <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Program from penceramahdiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
                     <option value="<?php echo $row['Program'];?>"><?php echo $row['Program'];}} ?></option>
                     </select></td></li>
                 </tr>
@@ -81,7 +82,7 @@ if(!$koneksi) {
                 <tr>
                   <td><li>Nama Penceramah:</td>
                   <td><select name="namapenceramah">
-                  <?php $query = mysqli_query($koneksi, "SELECT DISTINCT NamaPenceramah from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                  <?php $query = mysqli_query($koneksi, "SELECT DISTINCT NamaPenceramah from penceramahdiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
                     <option value="<?php echo $row['NamaPenceramah']; ?>"><?php echo $row['NamaPenceramah'];}} ?></option>
                       </select></td></li>
                 </tr>
@@ -89,7 +90,7 @@ if(!$koneksi) {
                 <tr>
                     <td><li>Jenis Ceramah:</td>
                     <td><select name="jenisceramah">
-                    <?php $query = mysqli_query($koneksi, "SELECT DISTINCT JenisCeramah from pengampudiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <?php $query = mysqli_query($koneksi, "SELECT DISTINCT JenisCeramah from penceramahdiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
                     <option value="<?php echo $row['JenisCeramah']; ?>"><?php echo $row['JenisCeramah'];}} ?></option>
                         </select></td></li>
                   </tr>
@@ -171,8 +172,12 @@ if (isset($_POST['submit'])){
   
   $result = $koneksi->query($sql);
   if ($result != '1'){
-    $sql = "SELECT averages from reratanilai";
-    $sql = $sql . " " . "where NamaPengajar = " . "'". $_POST['namapengajar'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['matapelatihan'] ."' AND angkatantahun = '" .$_POST['angkatan']."';";
+    $sql = "ALTER TABLE reratanilaiceramah AUTO_INCREMENT= ";
+    $sql = $sql . $cods . ";";
+    $result = $koneksi->query($sql);
+
+    $sql = "SELECT AVG(nilai) as averages from reratanilaiceramah,penceramahnilai";
+    $sql = $sql . " " . "where transaksi = reratanilaiceramah.prime and NamaPenceramah = " . "'". $_POST['namapenceramah'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['jenisceramah'] ."' AND angkatantahun = '" .$_POST['angkatan']."' AND tanggalwaktu = '" .$_POST['tanggalpengampu'] ."';";
     // echo $sql;
     $result = $koneksi->query($sql);
     $rata_bfr = 0;
@@ -181,47 +186,70 @@ if (isset($_POST['submit'])){
         $rata_bfr = $row['averages'];
       }
     }
-    $rata_rata = ($rata_rata + $rata_bfr )/2.0;
-    $sql = "UPDATE reratanilai SET averages = " .$rata_rata ." ";
-    $sql = $sql . " " . "where NamaPengajar = " . "'". $_POST['namapengajar'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['matapelatihan'] ."' AND angkatantahun = '" .$_POST['angkatan']."';";
+
+    $sql = "SELECT COUNT(nilai) as averages from reratanilaiceramah,penceramahnilai";
+    $sql = $sql . " " . "where transaksi = reratanilaiceramah.prime and NamaPenceramah = " . "'". $_POST['namapenceramah'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['jenisceramah'] ."' AND angkatantahun = '" .$_POST['angkatan']."' AND tanggalwaktu = '" .$_POST['tanggalpengampu'] ."';";
+    // echo $sql;
     $result = $koneksi->query($sql);
+    $ngitung = 0;
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()){
+        $ngitung = $row['averages'];
+      }
+    }
+
+    $rata_rata = (($rata_rata*4) + ($rata_bfr * $ngitung) )/ (($ngitung + 4)*1.0);
+    $sql = "UPDATE reratanilaiceramah SET averages = " .$rata_rata ." ";
+    $sql = $sql . " " . "where NamaPenceramah = " . "'". $_POST['namapenceramah'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['jenisceramah'] ."' AND angkatantahun = '" .$_POST['angkatan']. "' AND tanggalwaktu = '" .$_POST['tanggalpengampu'] ."';";
+    $result = $koneksi->query($sql);
+
+    $sql = "SELECT prime as AUTO_INCREMENT  FROM  reratanilaiceramah";
+    $sql = $sql . " " . "where NamaPenceramah = " . "'". $_POST['namapenceramah'] ."' AND program = '" . $_POST['program'] . "' AND matpel = '" .$_POST['jenisceramah'] ."' AND angkatantahun = '" .$_POST['angkatan']. "' AND tanggalwaktu = '" .$_POST['tanggalpengampu'] ."';";
+    $result = $koneksi->query($sql);
+   
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $cods = $row['AUTO_INCREMENT'];  
+    }
+    }
   }
   // echo $sql;
   $sql = "INSERT INTO saranpenceramah(Saran,tanggalwaktu,transaksi) values(";
   $sql = $sql. "'" . $_POST['pesanpenceramah'] . "'" . ",";
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
 
-  $sql = "INSERT INTO penceramahnilaii(id_butirnilai,nilai,tanggalwaktu,transaksi) values(1,";
+  $sql = "INSERT INTO penceramahnilai(id_butirnilai,nilai,transaksi) values(1,";
   $sql = $sql . $_POST['penguasaanpenceramah'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO penceramahnilaii(id_butirnilai,nilai,tanggalwaktu,transaksi) values(2,";
+  $sql = "INSERT INTO penceramahnilai(id_butirnilai,nilai,transaksi) values(2,";
   $sql = $sql . $_POST['menyajikanpenceramah'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO penceramahnilaii(id_butirnilai,nilai,tanggalwaktu,transaksi) values(3,";
+  $sql = "INSERT INTO penceramahnilai(id_butirnilai,nilai,transaksi) values(3,";
   $sql = $sql . $_POST['caramenjawabpenceramah'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
 
-  $sql = "INSERT INTO penceramahnilaii(id_butirnilai,nilai,tanggalwaktu,transaksi) values(4,";
+  $sql = "INSERT INTO penceramahnilai(id_butirnilai,nilai,transaksi) values(4,";
   $sql = $sql . $_POST['motivasipenceramah'] . "," ;
-  $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+ 
   $sql = $sql. $cods . ");";
   $result = $koneksi->query($sql);
   // // $sql = $sql . "NULL"
 
   // $sql = $sql . "NULL"
- 
-
+  // mysqli_close($koneksi);
+  // ob_end_flush();
+  header("location: coach.php");
 }
 
 mysqli_close($koneksi);

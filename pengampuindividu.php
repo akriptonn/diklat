@@ -183,9 +183,9 @@ if(!$koneksi) {
                         <td></td>
                         <td>Rata-rata</td>
                         <td><?php
-                        while($row = mysqli_fetch_array($query)){echo $row['averages'];}
+                        while($row = mysqli_fetch_array($query)){$simpan = $row['averages']; echo $row['averages'];}
                              ?></td>
-                        <td><?php $simpan = $row['averages']; if ($simpan >= 82.51){ echo "Sangat Baik";} else if ($simpan >= 72.5){echo "Baik";} else if ($simpan >= 62.51){echo "Cukup";} else {echo "Kurang";} ?></td>
+                        <td><?php  if ($simpan >= 82.51){ echo "Sangat Baik";} else if ($simpan >= 72.5){echo "Baik";} else if ($simpan >= 62.51){echo "Cukup";} else {echo "Kurang";} ?></td>
                     </tr>     
                     <?php }?>        
                     <tr><td>&nbsp;</td></tr>

@@ -19,7 +19,7 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
+
 
 
 ?>
@@ -66,15 +66,33 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
         </header>
         <section>
             <nav>
+              <form action="penceramahindividu.php" method="post">
               <h2 style="color: rgb(34, 80, 90)">Rekapitulasi Hasil Evaluasi Penceramah</h2>
               <p><img src="kemnakerri.jpg" width="200px"></p><br>
-              <p style="color: rgb(34, 80, 90)">Program :</p>
-              <p style="color: rgb(34, 80, 90)">Nama Penceramah :</p>
-              <p style="color: rgb(34, 80, 90)">Jenis Ceramah :</p>
-              <p style="color: rgb(34, 80, 90)">Tanggal dan Waktu :</p>
-              <p style="color: rgb(34, 80, 90)">Angkatan/Tahun :</p>
+              <p style="color: rgb(34, 80, 90)">Program : <select name="program">
+                <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Program from penceramahdiklat where Program != '';"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="<?php echo $row['Program'];?>"><?php echo $row['Program'];}} ?></option>
+                    </select> </p>
+              <p style="color: rgb(34, 80, 90)">Nama Penceramah : <select name="namapengajar">
+                    <?php $query = mysqli_query($koneksi, "SELECT DISTINCT NamaPenceramah as NamaPengajar from penceramahdiklat where NamaPenceramah !='';"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="<?php echo $row['NamaPengajar']; ?>"><?php echo $row['NamaPengajar'];}} ?></option>
+                    </select></p>
+              <p style="color: rgb(34, 80, 90)">Jenis Ceramah : <select name="matapelatihan">
+                  <?php $query = mysqli_query($koneksi, "SELECT DISTINCT JenisCeramah as MataDiklat from penceramahdiklat where JenisCeramah !='';"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="<?php echo $row['MataDiklat']; ?>"><?php echo $row['MataDiklat'];}} ?></option>
+                      </select></p>
+              <p style="color: rgb(34, 80, 90)">Tanggal dan Waktu : <select name="tanggalwaktu">
+                    <?php $query = mysqli_query($koneksi, "SELECT DISTINCT tanggalwaktu from reratanilaiceramah where tanggalwaktu !='';"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="<?php echo $row['tanggalwaktu']; ?>"><?php echo $row['tanggalwaktu'];}} ?></option>
+                    </select></p>
+              <p style="color: rgb(34, 80, 90)">Angkatan/Tahun : <select name="angkatantahun">
+                    <?php $query = mysqli_query($koneksi, "SELECT DISTINCT angkatantahun from reratanilaiceramah where angkatantahun !='';"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="<?php echo $row['angkatantahun']; ?>"><?php echo $row['angkatantahun'];}} ?></option>
+                    </select></p> <input type="submit" id="submit" name="submit" value="Submit">
+                    </form>
             </nav>
           <article>
+          <?php if (isset($_POST['submit'])){ ?>
               <ul>
                   <table border="1">
                     <tr>
@@ -83,22 +101,42 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
                         <td>Nilai</td>
                         <td>Predikat</td>
                     </tr>
-                    <?php if(mysqli_num_rows($query)>0) {?>
+                    
+                    <?php $sq = "SELECT id, butir_penilaian,tanggalwaktu,NamaPenceramah,program,matpel,angkatantahun,AVG(Nilai) as Nilai FROM penceramahnilai,butirnilaiceramah,reratanilaiceramah where id=id_butirnilai and transaksi = reratanilaiceramah.prime and";
+                    $sq = $sq . " NamaPenceramah = " . "'" . $_POST['namapengajar'] ."'";
+                    $sq = $sq . " and matpel = " . "'" . $_POST['matapelatihan'] ."'";
+                    $sq = $sq . " and angkatantahun = " . "'" . $_POST['angkatantahun'] ."'";
+                    $sq = $sq . " and tanggalwaktu = " . "'" . $_POST['tanggalwaktu'] ."'";
+                    $sq = $sq . " and program = " . "'" . $_POST['program'] ."'";
+                    $sq = $sq . " GROUP BY id, butir_penilaian,tanggalwaktu,NamaPenceramah,program,matpel,angkatantahun ORDER BY id ASC;";
+                    // echo $sq;
+                     $query = mysqli_query($koneksi, $sq);
+ if(mysqli_num_rows($query)>0) {?>
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
                         <td><?php echo $row['id']?></td>
-                        <td><?php echo $row['butir penilaian']?></td>
-                        <td><?php echo $row['nilai']?></td>
-                        <td><?php echo $row['predikat']?></td>
+                        <td><?php echo $row['butir_penilaian']?></td>
+                        <td><?php echo $row['Nilai']?></td>
+                        <td><?php $simpan = $row['Nilai']; if ($simpan >= 82.51){ echo "Sangat Baik";} else if ($simpan >= 72.5){echo "Baik";} else if ($simpan >= 62.51){echo "Cukup";} else {echo "Kurang";} ?></td>
                     </tr>
                     <?php }?>
-                    <?php }?>
+                    <?php } $sq = "SELECT averages FROM reratanilaiceramah where ";
+                        $sq = $sq . " NamaPenceramah = " . "'" . $_POST['namapengajar'] ."'";
+                        $sq = $sq . " and matpel = " . "'" . $_POST['matapelatihan'] ."'";
+                        $sq = $sq . " and angkatantahun = " . "'" . $_POST['angkatantahun'] ."'";
+                        $sq = $sq . " and tanggalwaktu = " . "'" . $_POST['tanggalwaktu'] ."'";
+                        $sq = $sq . " and program = " . "'" . $_POST['program'] ."'";
+                        $sq = $sq . " ;";
+                        $query = mysqli_query($koneksi, $sq); if(mysqli_num_rows($query)>0){?>
                     <tr>
                         <td></td>
                         <td>Rata-rata</td>
-                        <td>100</td>
-                        <td>Sangat Baik</td>
-                    </tr>             
+                        <td><?php
+                        while($row = mysqli_fetch_array($query)){echo $row['averages'];}
+                             ?></td>
+                        <td><?php $simpan = $row['averages']; if ($simpan >= 82.51){ echo "Sangat Baik";} else if ($simpan >= 72.5){echo "Baik";} else if ($simpan >= 62.51){echo "Cukup";} else {echo "Kurang";} ?></td>
+                    </tr>   
+                    <?php }?>          
                   </table>
                   <br>
                   Komentar
@@ -108,7 +146,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
                     </tr>
                     </table>
                   <br>
-                  <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button>  
+                  <?php } ?>             
           </article>
        </section>  
         <footer>

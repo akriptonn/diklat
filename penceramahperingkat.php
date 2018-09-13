@@ -20,7 +20,7 @@ if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
 $rans = 0;
-$query = mysqli_query($koneksi, "SELECT matpel,NamaPenceramah as NamaPengajar,average FROM ratanilaipenceramah where program='aa' ORDER BY average DESC");
+// $query = mysqli_query($koneksi, "SELECT matpel,NamaPenceramah as NamaPengajar,average FROM ratanilaipenceramah where program='aa' ORDER BY average DESC");
 
 
 ?>
@@ -66,10 +66,17 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPenceramah as NamaPengajar,av
           <h1>Pusdiklat Pegawai Kemnaker RI</h1>
           <h3>Peringkat</h3>
           <h5>Rekapitulasi Evaluasi Penceramah</h5>
-          <h5>Program</h5>
+          <form action="penceramahperingkat.php" method="post">
+          <h5>Program <select name="program">
+                <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Program from penceramahdiklat where Program != '';"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="<?php echo $row['Program'];?>"><?php echo $row['Program'];}} ?></option>
+                    </select></h5>
+                    <input type="submit" id="submit" name="submit" value="Submit">
+                    </form>
         </header>
         <section>
           <article>
+          <?php if (isset($_POST['submit'])){ ?>
               <ul>
                 <form action="">
                   <table border="1">
@@ -80,7 +87,13 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPenceramah as NamaPengajar,av
                         <td>Nilai Rata-Rata</td>
                         <td>Predikat</td>
                     </tr>       
-                    <?php if(mysqli_num_rows($query)>0) {?>
+                    <?php
+                    $sq = "SELECT matpel,NamaPenceramah as NamaPengajar,average FROM ratanilaipenceramah where ";
+                    $sq = $sq . "program = " . "'" . $_POST['program'] . "' ";
+                    $sq = $sq ."ORDER BY average DESC";
+                    // echo $sq;
+                    $query = mysqli_query($koneksi, $sq);
+                    if(mysqli_num_rows($query)>0) {?>
                     <?php while($row = mysqli_fetch_array($query)) {?>
                     <tr>
                         <td><?php $rans = $rans + 1; echo $rans?></td>
@@ -92,7 +105,9 @@ $query = mysqli_query($koneksi, "SELECT matpel,NamaPenceramah as NamaPengajar,av
                     <?php }}?>    
                   </table>
                   <br>
-                  <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button> 
+
+                  <?php } ?>            
           </article>
        </section>
       </form>    

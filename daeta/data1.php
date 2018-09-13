@@ -1,9 +1,11 @@
 <?php
 header('Content-Type: application/json');
-
+session_start();
 $conn = mysqli_connect("localhost","root","","login");
 
-$sqlQuery = "SELECT matpel,NamaPengajar,AVG(average) as average FROM ratanilaipengampu GROUP BY matpel,NamaPengajar ORDER BY average DESC";
+$sqlQuery = "SELECT matpel,NamaPengajar,average FROM ratanilaipengampu where program = '";
+$sqlQuery = $sqlQuery . $_SESSION['temp'] . "' ";
+$sqlQuery = $sqlQuery . "ORDER BY average DESC";
 
 $result = mysqli_query($conn,$sqlQuery);
 

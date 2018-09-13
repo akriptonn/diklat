@@ -19,8 +19,10 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
-
+if (isset($_GET['submit'])){
+    $_SESSION['temp'] = $_GET['program'];
+    
+}
 
 ?>
 
@@ -78,14 +80,21 @@ BODY {
         </header>
         <section>
             <nav>
+            <form action="penceramahgrafik.php" method="get">
               <h2 style="color: rgb(34, 80, 90)">Grafik Widyaiswara</h2>
               <p><img src="kemnakerri.jpg" width="200px"></p><br>
+              <p style="color: rgb(34, 80, 90)">Program : <select name="program">
+                <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Program from penceramahdiklat where Program != '';"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="<?php echo $row['Program'];?>"><?php echo $row['Program'];}} ?></option>
+                    </select> </p>
+                    <input type="submit" id="submit" name="submit" value="Submit">
+              </form>
             </nav>
           <article>
           <div id="chart-container">
         <canvas id="graphCanvas"></canvas>
     </div>
-
+    <?php if(isset($_GET['submit'])){ ?>
     <script>
         $(document).ready(function () {
             showGraph();
@@ -132,7 +141,8 @@ BODY {
         }
         </script>
                   <br>
-                  <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button> 
+                  <?php } ?>            
           </article>
        </section>
       </form>    

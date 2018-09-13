@@ -103,7 +103,7 @@ BODY {
                     var marks = [];
 
                     for (var i in data) {
-                        name.push(data[i].NamaPenceramah+" : "+data[i].matpel);
+                        name.push(data[i].NamaPenceramah);
                         marks.push(data[i].average);
                     }
 

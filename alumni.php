@@ -153,12 +153,12 @@ if (isset($_POST['submit'])){
                   <td><br></td>    
                 <tr>
                     <td><li>Tahun:</td>
-                    <td><input type="number" name="tahun" value="2006" required></td></li>
+                    <td><input type="number" name="tahun" value="2006"></td></li>
                   </tr>
                   <td><br></td> 
                 <tr>
                     <td><li>No. Hp:</td>
-                    <td><input type="tel" name="nohp" value="08XXX" required></td></li>
+                    <td><input type="tel" name="nohp" value="08XXX"></td></li>
                   </tr>
                   <td><br></td> 
                 <tr>

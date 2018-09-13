@@ -32,6 +32,50 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
+<style type="text/css">
+BODY {
+    width: auto;
+}
+
+#chart-container {
+    width: auto;
+    height: auto;
+}
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
   <style>
       * {box-sizing:border-box;}
       body{font-family: Arial,Arial, Helvetica, sans-serif;}
@@ -87,7 +131,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
           <article>
           <?php if (isset($_POST['submit'])){ ?>
               <ul>
-              <table id="pengampu" border="0">
+              <table id="penyelenggaraeval" border="0">
                     <tr>
                     <td></td>
                     <td>Nama Diklat : <?php echo $_POST['program']?></td>
@@ -113,6 +157,10 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
                     $sq = $sq . " and Tempat = " . "'" . $_POST['tempat'] ."'";
                     $sq = $sq . " and Durasi = " . "'" . $_POST['durasi'] ."'";
                     $sq = $sq . " GROUP BY id,butir_penilaian,NamaDiklat,Tempat,Durasi ORDER BY id ASC;";
+
+                    $_SESSION['program'] = $_POST['program'];
+                    $_SESSION['tempat'] = $_POST['tempat'];
+                    $_SESSION['durasi'] = $_POST['durasi'];
                     // echo $sq;
                     $query = mysqli_query($koneksi, $sq);
                     if(mysqli_num_rows($query)>0) {?>
@@ -142,6 +190,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
                     <tr><td>&nbsp;</td></tr>     
                   
                     <tr>
+                    <td></td>
                         <td>Komentar</td>
                     </tr>
                     <tr>
@@ -156,8 +205,57 @@ $query = mysqli_query($koneksi, "SELECT * FROM penyelenggara ORDER BY penyelengg
                         $query = mysqli_query($koneksi, $sq); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){if(($row['Saran'] != "-")&&($row['Saran'] != " ")&&($row['Saran'] != "")){echo "- ";echo $row['Saran']; echo "<br>";}} } ?></td>
                     </tr>
                     </table>
-                  <br>
+                    <div id="chart-container">
+        <canvas id="graphCanvas"></canvas>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            showGraph();
+        });
+
+
+        function showGraph()
+        {
+            {
+                $.post("daeta/data7.php",
+                function (data)
+                {
+                    console.log(data);
+                     var name = [];
+                    var marks = [];
+
+                    for (var i in data) {
+                        name.push(data[i].butir_penilaian);
+                        marks.push(data[i].Nilai);
+                    }
+
+                    var chartdata = {
+                        labels: name,
+                        datasets: [
+                            {
+                                label: 'Nilai Rata-Rata',
+                                backgroundColor: '#49e2ff',
+                                borderColor: '#46d5f1',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: marks
+                            }
+                        ]
+                    };
+
+                    var graphTarget = $("#graphCanvas");
+
+                    var barGraph = new Chart(graphTarget, {
+                        type: 'bar',
+                        data: chartdata
+                    });
+                });
+            }
+        }
+        </script>
                   <button onclick="location.href='penyelenggaraadmin.php'"type="button">Kembali</button>   
+                  <button onclick="exportTableToExcel('penyelenggaraeval', 'penyelenggara eval')">Download</button>
                   <?php } ?>          
           </article>
        </section>  

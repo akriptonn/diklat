@@ -28,7 +28,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Grafik Widyaiswara</title>
+    <title>Grafik Mentor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -78,7 +78,7 @@ BODY {
         </header>
         <section>
             <nav>
-              <h2 style="color: rgb(34, 80, 90)">Grafik Widyaiswara</h2>
+              <h2 style="color: rgb(34, 80, 90)">Grafik Mentor</h2>
               <p><img src="kemnakerri.jpg" width="200px"></p><br>
             </nav>
           <article>
@@ -132,7 +132,7 @@ BODY {
         }
         </script>
                   <br>
-                  <button onclick="location.href='coachadmin.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='mentoradmin.php'"type="button">Kembali</button>             
           </article>
        </section>
       </form>    

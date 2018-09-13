@@ -32,6 +32,38 @@ if(!$koneksi) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
   <style>
       * {box-sizing:border-box;}
       body{font-family: Arial,Arial, Helvetica, sans-serif;}
@@ -94,7 +126,33 @@ if(!$koneksi) {
           <article>
           <?php if (isset($_POST['submit'])){ ?>
               <ul>
-                  <table border="1">
+                  <table id="penceramah" border="0">
+                  <tr>
+                    <Td></td>
+                    <td>REKAPITULASI HASIL EVALUASI PENCERAMAH</td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
+                  <tr>
+                    <td></td>
+                    <td>Program : <?php echo $_POST['program']?></td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td>Nama Penceramah : <?php echo $_POST['namapengajar']?></td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td>Jenis Ceramah : <?php echo $_POST['matapelatihan']?></td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td>Tanggal dan Waktu : <?php echo $_POST['tanggalwaktu']?></td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td>Angkatan/Tahun : <?php echo $_POST['angkatantahun']?></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
                     <tr>
                         <td>No.</td>
                         <td>Butir Penilaian</td>
@@ -136,12 +194,10 @@ if(!$koneksi) {
                              ?></td>
                         <td><?php $simpan = $row['averages']; if ($simpan >= 82.51){ echo "Sangat Baik";} else if ($simpan >= 72.5){echo "Baik";} else if ($simpan >= 62.51){echo "Cukup";} else {echo "Kurang";} ?></td>
                     </tr>   
-                    <?php }?>          
-                  </table>
-                  <br>
-                  
-                  <table border="0">
+                    <?php }?> 
+                    <tr><td>&nbsp;</td></tr>         
                     <tr>
+                    <td></td>
                         <td>Komentar</td>
                     </tr>
                     <tr>
@@ -160,6 +216,7 @@ if(!$koneksi) {
                     </table>
                   <br>
                   <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button>  
+                  <button onclick="exportTableToExcel('penceramah', 'penceramah')">Download</button>
                   <?php } ?>             
           </article>
        </section>  

@@ -127,6 +127,11 @@ if(!$koneksi) {
               <ul>
                   <table id="pengampu" border="0">
                     <tr>
+                    <Td></td>
+                    <td>REKAPITULASI HASIL EVALUASI WIDYAISWARA/WILB</td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
+                    <tr>
                     <td></td>
                     <td>Program : <?php echo $_POST['program']?></td>
                     </tr>

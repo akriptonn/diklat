@@ -33,6 +33,38 @@ $rans = 0;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
   <style>
       * {box-sizing:border-box;}
       body{font-family: Arial,Arial, Helvetica, sans-serif;}
@@ -79,7 +111,20 @@ $rans = 0;
           <?php if (isset($_POST['submit'])){ ?>
               <ul>
                 <form action="">
-                  <table border="1">
+                  <table id="penceramahperingkat" border="0">
+                  <tr>
+                  <td></td>
+                  <td>DAFTAR PERINGKAT</td>
+                  </tr>
+                  <tr>
+                    <Td></td>
+                    <td>REKAPITULASI EVALUASI PENCERAMAH</td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td><?php echo $_POST['program']?></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
                     <tr>
                         <td>Peringkat</td>
                         <td>Mata Diklat</td>
@@ -106,7 +151,7 @@ $rans = 0;
                   </table>
                   <br>
                   <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button> 
-
+                  <button onclick="exportTableToExcel('penceramahperingkat', 'penceramah peringkat')">Download</button>
                   <?php } ?>            
           </article>
        </section>

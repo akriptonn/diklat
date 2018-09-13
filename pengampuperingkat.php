@@ -112,7 +112,20 @@ $rans = 0;
           <?php if (isset($_POST['submit'])){ ?>
               <ul>
                 <form action="">
-                  <table id="pengampuperingkat" border="1">
+                  <table id="pengampuperingkat" border="0">
+                  <tr>
+                  <td></td>
+                  <td>DAFTAR PERINGKAT</td>
+                  </tr>
+                  <tr>
+                    <Td></td>
+                    <td>REKAPITULASI EVALUASI WIDYAISWARA</td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                    <td><?php echo $_POST['program']?></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
                     <tr>
                         <td>Peringkat</td>
                         <td>Mata Diklat</td>

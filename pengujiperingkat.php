@@ -33,6 +33,38 @@ $query = mysqli_query($koneksi, "SELECT NamaPenguji as NamaCoach,AVG(averages) a
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
   <style>
       * {box-sizing:border-box;}
       body{font-family: Arial,Arial, Helvetica, sans-serif;}
@@ -71,7 +103,16 @@ $query = mysqli_query($koneksi, "SELECT NamaPenguji as NamaCoach,AVG(averages) a
         <article>
               <ul>
                 <form action="">
-                  <table border="1">
+                  <table id="pengujiperingkat" border="0">
+                  <tr>
+                  <td></td>
+                  <td>DAFTAR PERINGKAT</td>
+                  </tr>
+                  <tr>
+                    <Td></td>
+                    <td>REKAPITULASI EVALUASI PENGUJI</td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
                     <tr>
                         <td>Peringkat</td>
                         <td>Nama Coach</td>
@@ -90,6 +131,7 @@ $query = mysqli_query($koneksi, "SELECT NamaPenguji as NamaCoach,AVG(averages) a
                   </table>
                   <br>
                   <button onclick="location.href='pengujiadmin.php'"type="button">Kembali</button>             
+                  <button onclick="exportTableToExcel('pengujiperingkat', 'penguji peringkat')">Download</button> 
           </article>
        </section>
       </form>    

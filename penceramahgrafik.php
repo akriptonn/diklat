@@ -30,7 +30,7 @@ if (isset($_GET['submit'])){
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Grafik Widyaiswara</title>
+    <title>Grafik Penceramah</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
@@ -81,7 +81,7 @@ BODY {
         <section>
             <nav>
             <form action="penceramahgrafik.php" method="get">
-              <h2 style="color: rgb(34, 80, 90)">Grafik Widyaiswara</h2>
+              <h2 style="color: rgb(34, 80, 90)">Grafik Penceramah</h2>
               <p><img src="kemnakerri.jpg" width="200px"></p><br>
               <p style="color: rgb(34, 80, 90)">Program : <select name="program">
                 <?php $query = mysqli_query($koneksi, "SELECT DISTINCT Program from penceramahdiklat where Program != '';"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>

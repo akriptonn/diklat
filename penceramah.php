@@ -214,7 +214,7 @@ if (isset($_POST['submit'])){
     }
   }
   // echo $sql;
-  $sql = "INSERT INTO saranpenceramah(Saran,tanggalwaktu,transaksi) values(";
+  $sql = "INSERT INTO saranpenceramah(Saran,transaksi) values(";
   $sql = $sql. "'" . $_POST['pesanpenceramah'] . "'" . ",";
 
   $sql = $sql. $cods . ");";

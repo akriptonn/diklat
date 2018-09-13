@@ -13,6 +13,100 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
+
+if(isset($_POST['submit'])){
+
+  $rata_rata = $_POST['kemampuanmembimbingmentor'] + $_POST['motivasimentor'] + $_POST['penggunaanmetodementor'];
+  $rata_rata = $rata_rata / 3.00;
+  // echo $rata_rata;
+  $sql = "SELECT `AUTO_INCREMENT`  FROM  INFORMATION_SCHEMA.TABLES   WHERE TABLE_NAME   = 'reratanilaimentor';";
+  $result = $koneksi->query($sql);
+  $cods = 1;
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $cods = $row['AUTO_INCREMENT'];  
+    }
+  }
+
+  $sql = "INSERT INTO reratanilaimentor(averages, NamaMentor, Kelompok, angkatantahun) values(";
+  $sql = $sql. $rata_rata . ",";
+  $sql = $sql. "'" . $_POST['namamentor'] . "'" . ",";
+  $sql = $sql. "'" . $_POST['kelompok'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['jenisceramah'] . "'" . ",";
+  // $sql = $sql. "'" . $_POST['tanggalpengampu'] . "'" . ",";
+  $sql = $sql. "'" . $_POST['angkatan'] . "'" . ");";
+  
+  $result = $koneksi->query($sql);
+  if ($result != '1'){
+    $sql = "ALTER TABLE reratanilaimentor AUTO_INCREMENT= ";
+    $sql = $sql . $cods . ";";
+    $result = $koneksi->query($sql);
+
+    $sql = "SELECT AVG(nilai) as averages from reratanilaimentor,mentornilai";
+    $sql = $sql . " " . "where transaksi = reratanilaimentor.prime and NamaMentor = " . "'". $_POST['namamentor'] ."' AND Kelompok = '" . $_POST['kelompok'] . "' AND angkatantahun = '" .$_POST['angkatan'] ."';";
+    // echo $sql;
+    $result = $koneksi->query($sql);
+    $rata_bfr = 0;
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()){
+        $rata_bfr = $row['averages'];
+      }
+    }
+
+    $sql = "SELECT COUNT(nilai) as averages from reratanilaimentor,mentornilai";
+    $sql = $sql . " " . "where transaksi = reratanilaimentor.prime and NamaMentor = " . "'". $_POST['namamentor'] ."' AND Kelompok = '" . $_POST['kelompok'] . "' AND angkatantahun = '" .$_POST['angkatan'] ."';";
+    // echo $sql;
+    $result = $koneksi->query($sql);
+    $ngitung = 0;
+    if ($result->num_rows > 0) {
+      while($row = $result->fetch_assoc()){
+        $ngitung = $row['averages'];
+      }
+    }
+
+    $rata_rata = (($rata_rata*3) + ($rata_bfr * $ngitung) )/ (($ngitung + 3)*1.0);
+    $sql = "UPDATE reratanilaimentor SET averages = " .$rata_rata ." ";
+    $sql = $sql . " " . "where NamaMentor = " . "'". $_POST['namamentor'] ."' AND Kelompok = '" . $_POST['kelompok'] . "' AND angkatantahun = '" .$_POST['angkatan'] ."';";
+    $result = $koneksi->query($sql);
+
+    $sql = "SELECT prime as AUTO_INCREMENT  FROM  reratanilaimentor";
+    $sql = $sql . " " . "where NamaMentor = " . "'". $_POST['namamentor'] ."' AND Kelompok = '" . $_POST['kelompok'] . "' AND angkatantahun = '" .$_POST['angkatan'] ."';";
+    $result = $koneksi->query($sql);
+   
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      $cods = $row['AUTO_INCREMENT'];  
+    }
+    }
+  }
+  // echo $sql;
+  $sql = "INSERT INTO saranmentor(Saran,transaksi) values(";
+  $sql = $sql. "'" . $_POST['pesanmentor'] . "'" . ",";
+
+  $sql = $sql. $cods . ");";
+  $result = $koneksi->query($sql);
+
+
+  $sql = "INSERT INTO mentornilai(id_butirnilai,nilai,transaksi) values(1,";
+  $sql = $sql . $_POST['kemampuanmembimbingmentor'] . "," ;
+
+  $sql = $sql. $cods . ");";
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO mentornilai(id_butirnilai,nilai,transaksi) values(2,";
+  $sql = $sql . $_POST['penggunaanmetodementor'] . "," ;
+
+  $sql = $sql. $cods . ");";
+  $result = $koneksi->query($sql);
+
+  $sql = "INSERT INTO mentornilai(id_butirnilai,nilai,transaksi) values(3,";
+  $sql = $sql . $_POST['motivasimentor'] . "," ;
+
+  $sql = $sql. $cods . ");";
+  $result = $koneksi->query($sql);
+
+  header("location: penyelenggara.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -68,14 +162,14 @@ if(!$koneksi) {
             </nav>
           <article>
               <ul>
-                <form action="penyelenggara.php" method="post">
+                <form action="mentor.php" method="post">
                   <table border="0">
                     <tr>
                       <td><li>Nama Mentor:</td>
                       <td><select name="namamentor">
-                          <option value="dinalutfia">Dina Lutfia, S.Ip., M.Si</option>
-                          <option value="dry">Dr.Y</option>
-                          </select></td></li>
+                      <?php $query = mysqli_query($koneksi, "SELECT DISTINCT NamaMentor as Program from mentordiklat;"); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){ ?>
+                    <option value="<?php echo $row['Program'];?>"><?php echo $row['Program'];}} ?></option>
+                    </select></td></li>
                     </tr>
                     <td><br></td>
                     <tr>
@@ -110,7 +204,7 @@ if(!$koneksi) {
                   <td><br></td>         
                   </table>
               </ul>
-                  <br><input type="submit" value="Submit">
+              <br><input type="submit" id="submit" name="submit" value="Submit">
                   <input type="reset">
                   <button onclick="location.href='penyelenggara.php'"type="button">Lanjut</button>
             <button onclick="location.href='penguji.php'"type="button">Kembali</button>             

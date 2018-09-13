@@ -19,6 +19,13 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
+
+if (isset($_POST['submit'])){
+  $sql = "INSERT INTO mentordiklat(NamaMentor) values(";
+  $sql = $sql . "'" . $_POST['program'] . "');";
+  $result = $koneksi->query($sql);
+  // echo $sql;
+}
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +75,7 @@ if(!$koneksi) {
       </nav>
     <article>
         <ul>
-          <form action="">
+        <form action="mentorupdate.php" method="post">
             <table border="0">
               <tr>
                 <td><li>Nama Mentor:</td>
@@ -78,7 +85,7 @@ if(!$koneksi) {
               <td><br></td>    
             </table>
         </ul>
-            <br><input type="submit" value="Submit">
+        <br><input type="submit" id="submit" name="submit" value="Submit">
             <input type="reset">        
             <button onclick="location.href='updateform.php'"type="button">Kembali</button>              
     </article>

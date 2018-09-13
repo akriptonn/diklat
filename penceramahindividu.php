@@ -139,10 +139,23 @@ if(!$koneksi) {
                     <?php }?>          
                   </table>
                   <br>
-                  Komentar
-                  <table border="1">
+                  
+                  <table border="0">
                     <tr>
                         <td>Komentar</td>
+                    </tr>
+                    <tr>
+                    <td></td>
+                        <td><?php
+                        $sq = "SELECT Saran from saranpenceramah,reratanilaiceramah where transaksi = reratanilaiceramah.prime and ";
+                        $sq = $sq . " NamaPenceramah = " . "'" . $_POST['namapengajar'] ."'";
+                        $sq = $sq . " and matpel = " . "'" . $_POST['matapelatihan'] ."'";
+                        $sq = $sq . " and angkatantahun = " . "'" . $_POST['angkatantahun'] ."'";
+                        $sq = $sq . " and reratanilaiceramah.tanggalwaktu = " . "'" . $_POST['tanggalwaktu'] ."'";
+                        $sq = $sq . " and program = " . "'" . $_POST['program'] ."'";
+                        $sq = $sq . " ;";
+                        // echo $sq;
+                        $query = mysqli_query($koneksi, $sq); if(mysqli_num_rows($query)>0){while($row = mysqli_fetch_array($query)){if(($row['Saran'] != "-")&&($row['Saran'] != " ")&&($row['Saran'] != "")){echo "- ";echo $row['Saran']; echo "<br>";}} } ?></td>
                     </tr>
                     </table>
                   <br>

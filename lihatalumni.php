@@ -19,9 +19,8 @@ $koneksi = mysqli_connect($nameserver,$username,$password,$namedb);
 if(!$koneksi) {
   die("Koneksi gagal".mysqli_connect_error());
 }
-$query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
-
-
+$rans = 0;
+$query = mysqli_query($koneksi,"SELECT * FROM alumni ORDER BY alumni.id ASC");
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +31,38 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
   <style>
       * {box-sizing:border-box;}
       body{font-family: Arial,Arial, Helvetica, sans-serif;}
@@ -69,7 +100,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
           <article>
               <ul>
                 <form action="">
-                  <table border="1">
+                  <table id="alumni" border="1">
                     <tr>
                         <td>No.</td>
                         <td>NIP</td>
@@ -84,10 +115,30 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
                         <td>Tahun</td>
                         <td>No. Hp</td>
                         <td>Email   </td>
-                    </tr>             
+                    </tr>
+                    <?php if(mysqli_num_rows($query)) {?>
+                    <?php while($row = mysqli_fetch_array($query)) {?>
+                    <tr>
+                        <td><?php $rans = $rans + 1; echo $rans?></td>
+                        <td><?php echo $row['nip']?></td>
+                        <td><?php echo $row['nama']?></td>
+                        <td><?php echo $row['ttl']?></td>
+                        <td><?php echo $row['pangkat']?></td>
+                        <td><?php echo $row['jenis kelamin']?></td>
+                        <td><?php echo $row['jabatan']?></td>
+                        <td><?php echo $row['unit kerja']?></td>
+                        <td><?php echo $row['pusat provinsi']?></td>
+                        <td><?php echo $row['diklat angkatan']?></td>
+                        <td><?php echo $row['tahun']?></td>
+                        <td><?php echo $row['no hp']?></td>
+                        <td><?php echo $row['email']?></td>
+                    </tr>   
+                    <?php } ?>
+                    <?php } ?>          
                   </table>
                   <br>
-                  <button onclick="location.href='admin.php'"type="button">Kembali</button>             
+                  <button onclick="location.href='admin.php'"type="button">Kembali</button>    
+                  <button onclick="exportTableToExcel('alumni', 'Daftar Alumni')">Download</button>         
           </article>
        </section>
       </form>    

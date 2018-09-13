@@ -28,10 +28,22 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
 <HTML>
   <head>
     <link rel="shortcut icon" href="kemnakerri.jpg">
-    <title>Grafik Penceramah</title>
+    <title>Grafik Widyaiswara</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <style type="text/css">
+BODY {
+    width: auto;
+}
+
+#chart-container {
+    width: auto;
+    height: auto;
+}
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
   <style>
       * {box-sizing:border-box;}
       body{font-family: Arial,Arial, Helvetica, sans-serif;}
@@ -66,11 +78,59 @@ $query = mysqli_query($koneksi, "SELECT * FROM coach ORDER BY coach.id ASC");
         </header>
         <section>
             <nav>
-              <h2 style="color: rgb(34, 80, 90)">Grafik Penceramah</h2>
+              <h2 style="color: rgb(34, 80, 90)">Grafik Widyaiswara</h2>
               <p><img src="kemnakerri.jpg" width="200px"></p><br>
             </nav>
           <article>
-              
+          <div id="chart-container">
+        <canvas id="graphCanvas"></canvas>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            showGraph();
+        });
+
+
+        function showGraph()
+        {
+            {
+                $.post("daeta/data2.php",
+                function (data)
+                {
+                    console.log(data);
+                     var name = [];
+                    var marks = [];
+
+                    for (var i in data) {
+                        name.push(data[i].NamaPenceramah+" : "+data[i].matpel);
+                        marks.push(data[i].average);
+                    }
+
+                    var chartdata = {
+                        labels: name,
+                        datasets: [
+                            {
+                                label: 'Nilai Rata-Rata',
+                                backgroundColor: '#49e2ff',
+                                borderColor: '#46d5f1',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: marks
+                            }
+                        ]
+                    };
+
+                    var graphTarget = $("#graphCanvas");
+
+                    var barGraph = new Chart(graphTarget, {
+                        type: 'bar',
+                        data: chartdata
+                    });
+                });
+            }
+        }
+        </script>
                   <br>
                   <button onclick="location.href='penceramahadmin.php'"type="button">Kembali</button>             
           </article>

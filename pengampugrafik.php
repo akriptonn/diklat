@@ -95,7 +95,7 @@ BODY {
         function showGraph()
         {
             {
-                $.post("data1.php",
+                $.post("daeta/data1.php",
                 function (data)
                 {
                     console.log(data);
